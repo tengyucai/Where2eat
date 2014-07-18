@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CD2AFD0E-DAC7-4D09-BC3C-627EF868E601</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Where2Eat</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E6322F07-5994-400B-8EA3-FC613D2CE165</key>
+		<string>https://github.com/Tengyu/Where2eat.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Where2Eat.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E6322F07-5994-400B-8EA3-FC613D2CE165</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Tengyu/Where2eat.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E6322F07-5994-400B-8EA3-FC613D2CE165</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E6322F07-5994-400B-8EA3-FC613D2CE165</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Where2eat</string>
+		</dict>
+	</array>
+</dict>
+</plist>

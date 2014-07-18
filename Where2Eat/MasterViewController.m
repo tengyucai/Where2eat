@@ -8,6 +8,7 @@
 
 #import "MasterViewController.h"
 #import "LocationManager.h"
+#import "OAuthConsumer.h"
 
 @interface MasterViewController ()
 
@@ -15,6 +16,8 @@
 
 @implementation MasterViewController {
     UILabel *nameLabel;
+    NSMutableData *_responseData;
+    NSDictionary *dic;
 }
 
 -(void)loadView
@@ -47,6 +50,8 @@
     
     NSTimeInterval inter = [todayDate timeIntervalSince1970];
     
+    [self fetch];
+    
     NSLog(@"%f", inter);
 }
 //
@@ -73,10 +78,67 @@
         [super motionEnded:motion withEvent:event];
 }
 
+-(void)didFinishFetch
+{
+    NSLog(@"%@", dic);
+    nameLabel.text= [NSString stringWithFormat:@"%@",dic[@"businesses"][0][@"name"]];//    [dic objectForKey:@"total"];
+}
 
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
 }
+
+
+#pragma mark - Yelp API
+
+- (void)fetch {
+    
+    // OAuthConsumer doesn't handle pluses in URL, only percent escapes
+    // OK: http://api.yelp.com/v2/search?term=restaurants&location=new%20york
+    // FAIL: http://api.yelp.com/v2/search?term=restaurants&location=new+york
+    
+    // OAuthConsumer has been patched to properly URL escape the consumer and token secrets
+    
+    NSURL *URL = [NSURL URLWithString:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=43.472199,-80.542064&radius_filter=1000&limit=20&mode=1"];
+    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
+    OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
+    id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init] ;
+    NSString *realm = nil;
+    
+    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:URL
+                                                                   consumer:consumer
+                                                                      token:token
+                                                                      realm:realm
+                                                          signatureProvider:provider];
+    [request prepare];
+    
+    _responseData = [[NSMutableData alloc] init];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [_responseData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [_responseData appendData:data];
+    /*NSString *STR = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+     NSLog(STR);
+     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:nil error:NULL];
+     NSLog(data);
+     //NSLog([[_responseData yajl_JSON]yajl_JSONStringWithOptions:YAJLGenOptionsBeautify indentString:@"  "]);
+     int i=1;*/
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"Error: %@, %@", [error localizedDescription], [error localizedFailureReason]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    dic = [NSJSONSerialization JSONObjectWithData:_responseData options:nil error:NULL];
+    [self didFinishFetch];
+}
+
 
 @end
