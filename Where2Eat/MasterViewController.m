@@ -10,16 +10,23 @@
 #import "LocationManager.h"
 #import "OAuthConsumer.h"
 #import "ANBlurredImageView.h"
+#include <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 #include <stdlib.h>
 
 @interface MasterViewController ()
 
+@property (nonatomic,strong) AVAudioPlayer *effectPlayer;
+
 @end
 
 @implementation MasterViewController {
+    
     UILabel *nameLabel;
     ANBlurredImageView *backgroundImage;
     UISlider *radiusSlider;
+    
+    float radius_filter;
     
     NSMutableData *_responseData;
     NSDictionary *resultDic;
@@ -54,8 +61,18 @@
     copyrightLabel.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:copyrightLabel];
     
-    radiusSlider = [[UISlider alloc] initWithFrame:(CGRect){30, SVB.size.height-60, SVB.size.width/2-30/2, 30}];
+    radiusSlider = [[UISlider alloc] initWithFrame:(CGRect){30, SVB.size.height-60, SVB.size.width-2*30, 30}];
+    radiusSlider.minimumValue = 100.0f;
+    radiusSlider.maximumValue = 40000.0f;
+    radiusSlider.value = 1000.0f;
+    [radiusSlider addTarget:self
+                     action:@selector(getSlidervalue:)
+           forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:radiusSlider];
     
+    
+    // change later, use NSUserDefault
+    radius_filter = radiusSlider.value;
     
     [LM startUpdatingLocation];
 }
@@ -99,13 +116,19 @@
     nameLabel.text= [NSString stringWithFormat:@"%@",resultDic[@"businesses"][randomNum][@"name"]];//    [dic objectForKey:@"total"];
 }
 
-
-
-
-#pragma mark - Yelp API
+-(void)getSlidervalue:(UISlider*)slider
+{
+    if ([slider isEqual:radiusSlider]) {
+        float newValue = slider.value/10;
+        slider.value = floor(newValue)*10;
+        radius_filter = slider.value;
+    }
+    NSLog(@"Current distance: %f", slider.value);
+}
 
 - (void)fetch {
     [self activity:YES];
+    [self soundEffect];
     
     // OAuthConsumer doesn't handle pluses in URL, only percent escapes
     // OK: http://api.yelp.com/v2/search?term=restaurants&location=new%20york
@@ -113,7 +136,7 @@
     
     // OAuthConsumer has been patched to properly URL escape the consumer and token secrets
     CLLocation *currentLocation = [LM currentLocation];
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=%f,%f&radius_filter=1000&limit=20&mode=1",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude]];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=%f,%f&radius_filter=%f&limit=20&mode=1",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter]];
     
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
     OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
@@ -130,6 +153,23 @@
     _responseData = [[NSMutableData alloc] init];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
+
+-(void)soundEffect
+{
+//(NSString *)effectName volume:(float)volume{
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"paper_flipping_page" withExtension:@"aiff"];
+    
+    self.effectPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
+    
+    _effectPlayer.volume = 1;
+    [_effectPlayer prepareToPlay];
+    [_effectPlayer play];
+    
+}
+
+#pragma mark - Yelp API
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [_responseData setLength:0];

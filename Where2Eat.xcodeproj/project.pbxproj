@@ -30,6 +30,13 @@
 		0D9EE2761978F5B700AECFE1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE2751978F5B700AECFE1 /* SplashViewController.m */; };
 		0D9EE27A1978FEFF00AECFE1 /* miniMapLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2791978FEFF00AECFE1 /* miniMapLogo.png */; };
 		0D9EE27C1979007A00AECFE1 /* wallpaper.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE27B1979007A00AECFE1 /* wallpaper.jpeg */; };
+		0D9EE2841979783900AECFE1 /* boing.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE27E1979783900AECFE1 /* boing.aiff */; };
+		0D9EE2851979783900AECFE1 /* flip_ya.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE27F1979783900AECFE1 /* flip_ya.aiff */; };
+		0D9EE2861979783900AECFE1 /* mud_bubble_long.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2801979783900AECFE1 /* mud_bubble_long.aiff */; };
+		0D9EE2871979783900AECFE1 /* paper_flipping_page.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2811979783900AECFE1 /* paper_flipping_page.aiff */; };
+		0D9EE2881979783900AECFE1 /* polaroid_camera_take_picture_01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2821979783900AECFE1 /* polaroid_camera_take_picture_01.aiff */; };
+		0D9EE2891979783900AECFE1 /* Ta_Da.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2831979783900AECFE1 /* Ta_Da.aiff */; };
+		0D9EE28B197978F700AECFE1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EE28A197978F700AECFE1 /* AudioToolbox.framework */; };
 		E81E22C01978C7A80028120C /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */; };
 		E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229E1978C7A80028120C /* NSString+URLEncoding.m */; };
 		E81E22C21978C7A80028120C /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22A01978C7A80028120C /* NSURL+Base.m */; };
@@ -94,6 +101,13 @@
 		0D9EE2751978F5B700AECFE1 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		0D9EE2791978FEFF00AECFE1 /* miniMapLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = miniMapLogo.png; sourceTree = "<group>"; };
 		0D9EE27B1979007A00AECFE1 /* wallpaper.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wallpaper.jpeg; sourceTree = "<group>"; };
+		0D9EE27E1979783900AECFE1 /* boing.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = boing.aiff; sourceTree = "<group>"; };
+		0D9EE27F1979783900AECFE1 /* flip_ya.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = flip_ya.aiff; sourceTree = "<group>"; };
+		0D9EE2801979783900AECFE1 /* mud_bubble_long.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = mud_bubble_long.aiff; sourceTree = "<group>"; };
+		0D9EE2811979783900AECFE1 /* paper_flipping_page.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = paper_flipping_page.aiff; sourceTree = "<group>"; };
+		0D9EE2821979783900AECFE1 /* polaroid_camera_take_picture_01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = polaroid_camera_take_picture_01.aiff; sourceTree = "<group>"; };
+		0D9EE2831979783900AECFE1 /* Ta_Da.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Ta_Da.aiff; sourceTree = "<group>"; };
+		0D9EE28A197978F700AECFE1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E81E229B1978C7A80028120C /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		E81E229D1978C7A80028120C /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -137,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EE28B197978F700AECFE1 /* AudioToolbox.framework in Frameworks */,
 				0D9EE23319789D7900AECFE1 /* CoreLocation.framework in Frameworks */,
 				0D9EE200197899E200AECFE1 /* CoreGraphics.framework in Frameworks */,
 				0D9EE202197899E200AECFE1 /* UIKit.framework in Frameworks */,
@@ -182,6 +197,7 @@
 		0D9EE1FC197899E200AECFE1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D9EE28A197978F700AECFE1 /* AudioToolbox.framework */,
 				0D9EE23219789D7900AECFE1 /* CoreLocation.framework */,
 				0D9EE1FD197899E200AECFE1 /* Foundation.framework */,
 				0D9EE1FF197899E200AECFE1 /* CoreGraphics.framework */,
@@ -211,6 +227,7 @@
 		0D9EE204197899E200AECFE1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0D9EE27D1979783900AECFE1 /* audio */,
 				0D9EE26C1978ECC500AECFE1 /* image */,
 				0D9EE205197899E200AECFE1 /* Where2Eat-Info.plist */,
 				0D9EE206197899E200AECFE1 /* InfoPlist.strings */,
@@ -285,6 +302,19 @@
 			);
 			name = Common;
 			sourceTree = "<group>";
+		};
+		0D9EE27D1979783900AECFE1 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE27E1979783900AECFE1 /* boing.aiff */,
+				0D9EE27F1979783900AECFE1 /* flip_ya.aiff */,
+				0D9EE2801979783900AECFE1 /* mud_bubble_long.aiff */,
+				0D9EE2811979783900AECFE1 /* paper_flipping_page.aiff */,
+				0D9EE2821979783900AECFE1 /* polaroid_camera_take_picture_01.aiff */,
+				0D9EE2831979783900AECFE1 /* Ta_Da.aiff */,
+			);
+			path = audio;
+			sourceTree = SOURCE_ROOT;
 		};
 		E81E22981978C7A80028120C /* Libraries */ = {
 			isa = PBXGroup;
@@ -428,11 +458,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EE2861979783900AECFE1 /* mud_bubble_long.aiff in Resources */,
+				0D9EE2891979783900AECFE1 /* Ta_Da.aiff in Resources */,
+				0D9EE2871979783900AECFE1 /* paper_flipping_page.aiff in Resources */,
 				0D9EE26E1978ECC500AECFE1 /* clouds.jpg in Resources */,
 				0D9EE208197899E200AECFE1 /* InfoPlist.strings in Resources */,
 				0D9EE27C1979007A00AECFE1 /* wallpaper.jpeg in Resources */,
+				0D9EE2841979783900AECFE1 /* boing.aiff in Resources */,
 				0D9EE27A1978FEFF00AECFE1 /* miniMapLogo.png in Resources */,
+				0D9EE2851979783900AECFE1 /* flip_ya.aiff in Resources */,
 				0D9EE210197899E200AECFE1 /* Images.xcassets in Resources */,
+				0D9EE2881979783900AECFE1 /* polaroid_camera_take_picture_01.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
