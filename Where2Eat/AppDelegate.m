@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "MasterViewController.h"
+#import "CommonViewController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +16,15 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    application.applicationSupportsShakeToEdit = YES;
+    
+    self.window.rootViewController = [CommonViewController new];
+    
+    MasterViewController *masterVC = [MasterViewController new];
+    [self.window.rootViewController addChildViewController:masterVC];
+    [self.window.rootViewController.view addSubview:masterVC.view];
+    [masterVC didMoveToParentViewController:self.window.rootViewController];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

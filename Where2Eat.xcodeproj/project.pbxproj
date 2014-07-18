@@ -20,6 +20,9 @@
 		0D9EE221197899E300AECFE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE21F197899E300AECFE1 /* InfoPlist.strings */; };
 		0D9EE223197899E300AECFE1 /* Where2EatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE222197899E300AECFE1 /* Where2EatTests.m */; };
 		0D9EE22E19789BD400AECFE1 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE22D19789BD400AECFE1 /* CommonViewController.m */; };
+		0D9EE23119789CCA00AECFE1 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE23019789CCA00AECFE1 /* MasterViewController.m */; };
+		0D9EE23319789D7900AECFE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EE23219789D7900AECFE1 /* CoreLocation.framework */; };
+		0D9EE23619789DF200AECFE1 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE23519789DF200AECFE1 /* LocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,11 @@
 		0D9EE222197899E300AECFE1 /* Where2EatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Where2EatTests.m; sourceTree = "<group>"; };
 		0D9EE22C19789BD400AECFE1 /* CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonViewController.h; sourceTree = "<group>"; };
 		0D9EE22D19789BD400AECFE1 /* CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonViewController.m; sourceTree = "<group>"; };
+		0D9EE22F19789CCA00AECFE1 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		0D9EE23019789CCA00AECFE1 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		0D9EE23219789D7900AECFE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0D9EE23419789DF200AECFE1 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		0D9EE23519789DF200AECFE1 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EE23319789D7900AECFE1 /* CoreLocation.framework in Frameworks */,
 				0D9EE200197899E200AECFE1 /* CoreGraphics.framework in Frameworks */,
 				0D9EE202197899E200AECFE1 /* UIKit.framework in Frameworks */,
 				0D9EE1FE197899E200AECFE1 /* Foundation.framework in Frameworks */,
@@ -99,6 +108,7 @@
 		0D9EE1FC197899E200AECFE1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D9EE23219789D7900AECFE1 /* CoreLocation.framework */,
 				0D9EE1FD197899E200AECFE1 /* Foundation.framework */,
 				0D9EE1FF197899E200AECFE1 /* CoreGraphics.framework */,
 				0D9EE201197899E200AECFE1 /* UIKit.framework */,
@@ -112,6 +122,10 @@
 			children = (
 				0D9EE20C197899E200AECFE1 /* AppDelegate.h */,
 				0D9EE20D197899E200AECFE1 /* AppDelegate.m */,
+				0D9EE22F19789CCA00AECFE1 /* MasterViewController.h */,
+				0D9EE23019789CCA00AECFE1 /* MasterViewController.m */,
+				0D9EE23419789DF200AECFE1 /* LocationManager.h */,
+				0D9EE23519789DF200AECFE1 /* LocationManager.m */,
 				0D9EE22C19789BD400AECFE1 /* CommonViewController.h */,
 				0D9EE22D19789BD400AECFE1 /* CommonViewController.m */,
 				0D9EE20F197899E200AECFE1 /* Images.xcassets */,
@@ -243,6 +257,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EE23119789CCA00AECFE1 /* MasterViewController.m in Sources */,
+				0D9EE23619789DF200AECFE1 /* LocationManager.m in Sources */,
 				0D9EE20E197899E200AECFE1 /* AppDelegate.m in Sources */,
 				0D9EE20A197899E200AECFE1 /* main.m in Sources */,
 				0D9EE22E19789BD400AECFE1 /* CommonViewController.m in Sources */,

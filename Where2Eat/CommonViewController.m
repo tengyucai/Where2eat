@@ -12,38 +12,163 @@
 
 @end
 
-@implementation CommonViewController
+@implementation CommonViewController {
+    NSMutableArray *propertiesArray;
+    UIActivityIndicatorView *activityView;
+}
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+
+-(void)loadView{
+    
+    self.view = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.view.autoresizingMask = FLEX_SIZE;
+    
+
+}
+
+//
+//-(UIStatusBarStyle)preferredStatusBarStyle{
+//    return UIStatusBarStyleLightContent;
+//}
+
+
+
+-(AppDelegate*)appDelegate{
+    return (AppDelegate*) [[UIApplication sharedApplication] delegate];
+}
+
+
+#pragma mark - Button
+
++(UIButton*)button:(NSString*)imageName target:(id)target action:(SEL)action{
+    UIButton *button = BUTTON;
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button sizeToFit];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
+
+
+#pragma mark - Rect helpers
+
++(CGRect)rectWithRect:(CGRect)rect setX:(float)x{
+    CGRect _rect = rect;
+    _rect.origin.x = x;
+    return _rect;
+}
+
++(CGRect)rectWithRect:(CGRect)rect setWidth:(float)width{
+    CGRect _rect = rect;
+    _rect.size.width = width;
+    return _rect;
+}
+
++(CGRect)rectWithRect:(CGRect)rect setHeight:(float)height{
+    CGRect _rect = rect;
+    _rect.size.height = height;
+    return _rect;
+}
+
++(CGRect)rectWithRect:(CGRect)rect setY:(float)y{
+    CGRect _rect = rect;
+    _rect.origin.y = y;
+    return _rect;
+}
+
+
+#pragma mark - Generic properties
+
+-(void)setValue:(id)value withKey:(NSString*)key forObject:(id)_object{
+    if(!propertiesArray){
+        propertiesArray = @[].mutableCopy;
     }
-    return self;
+    
+    if (!value) {
+        NSArray *resultsArray = [propertiesArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key == %@ && object == %@",key, _object]];
+        if (resultsArray.count > 0) {
+            [propertiesArray removeObject:resultsArray[0]];
+        }
+        return;
+    }
+    
+    [propertiesArray addObject:@{@"object": _object , @"key" : key , @"value" : value}];
+    
 }
 
-- (void)viewDidLoad
+-(id)getValueForKey:(NSString*)key ofObject:(id)_object{
+    
+    NSArray *resultsArray = [propertiesArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key == %@ && object == %@",key, _object]];
+    if (resultsArray.count > 0) {
+        return resultsArray[0][@"value"];
+    }
+    
+    return nil;
+}
+
+-(id)getObjectWithKey:(NSString*)_key value:(id)_value{
+    
+    NSArray *resultsArray = [propertiesArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"key == %@ && value == %@",_key, _value]];
+    if (resultsArray.count > 0) {
+        return resultsArray[0][@"object"];
+    }
+    
+    return nil;
+}
+
+#pragma mark - Activity
+
+-(void)activity:(BOOL)show
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    if (show) {
+        if (!activityView) {
+            activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            activityView.frame = (CGRect){SVB.size.width/2 - 120/2, 150, 120, 100};
+            activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+            activityView.backgroundColor = RGBA(0, 0, 0, 0.6);
+            activityView.layer.cornerRadius = 15;
+            [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        }
+        [self.view addSubview:activityView];
+        [self.view bringSubviewToFront:activityView];
+        [activityView startAnimating];
+    }else{
+        [activityView removeFromSuperview];
+        [activityView stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }
+    
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Generic Queries
+
+-(id)itemWithValue:(id)value forKey:(NSString*)key in:(NSArray*)array{
+    
+    return [self itemWithPredicate:[NSPredicate predicateWithFormat:@"%K == %@", key, value] in:array];
+}
+
+-(id)itemWithPredicate:(NSPredicate*)predicate in:(NSArray*)array{
+    
+    NSArray *ra = [array filteredArrayUsingPredicate:predicate];
+    if (ra.count == 1) {
+        return ra[0];
+    }
+    
+    return nil;
+}
+
+#pragma mark - helper
+
+
+-(NSDateComponents *)getCurrentDateTime
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSDate *now = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [gregorian components:NSHourCalendarUnit + NSMinuteCalendarUnit + NSSecondCalendarUnit + NSWeekdayCalendarUnit + NSDayCalendarUnit fromDate:now];
+    return comps;
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
