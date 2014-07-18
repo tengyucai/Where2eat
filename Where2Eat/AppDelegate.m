@@ -9,25 +9,52 @@
 #import "AppDelegate.h"
 #import "MasterViewController.h"
 #import "CommonViewController.h"
+#import "PaintingWindow.h"
+#import "SplashViewController.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    SplashViewController *splashVC;
+    MasterViewController *masterVC;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[PaintingWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    application.applicationSupportsShakeToEdit = YES;
+    //application.applicationSupportsShakeToEdit = YES;
     
     self.window.rootViewController = [CommonViewController new];
     
-    MasterViewController *masterVC = [MasterViewController new];
+    splashVC = [SplashViewController new];
+    [self.window.rootViewController addChildViewController:splashVC];
+    [self.window.rootViewController.view addSubview:splashVC.view];
+    [splashVC didMoveToParentViewController:self.window.rootViewController];
+    
+    masterVC = [MasterViewController new];
     [self.window.rootViewController addChildViewController:masterVC];
     [self.window.rootViewController.view addSubview:masterVC.view];
     [masterVC didMoveToParentViewController:self.window.rootViewController];
+    masterVC.view.alpha = 0;
+    
+     [self performSelector:@selector(transitionFromSplash) withObject:nil afterDelay:1.5];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+
+-(void)transitionFromSplash{
+    
+    [UIView animateWithDuration:1 animations:^{
+        masterVC.view.alpha = 1.0;
+        splashVC.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [splashVC willMoveToParentViewController:nil];
+        [splashVC removeFromParentViewController];
+        [splashVC.view removeFromSuperview];
+    }];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

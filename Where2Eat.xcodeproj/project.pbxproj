@@ -23,6 +23,13 @@
 		0D9EE23119789CCA00AECFE1 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE23019789CCA00AECFE1 /* MasterViewController.m */; };
 		0D9EE23319789D7900AECFE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EE23219789D7900AECFE1 /* CoreLocation.framework */; };
 		0D9EE23619789DF200AECFE1 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE23519789DF200AECFE1 /* LocationManager.m */; };
+		0D9EE2601978E03600AECFE1 /* PaintingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE25F1978E03600AECFE1 /* PaintingWindow.m */; };
+		0D9EE2671978E9EA00AECFE1 /* ANBlurredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE2641978E9EA00AECFE1 /* ANBlurredImageView.m */; };
+		0D9EE2681978E9EA00AECFE1 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE2661978E9EA00AECFE1 /* UIImage+BoxBlur.m */; };
+		0D9EE26E1978ECC500AECFE1 /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE26D1978ECC500AECFE1 /* clouds.jpg */; };
+		0D9EE2761978F5B700AECFE1 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EE2751978F5B700AECFE1 /* SplashViewController.m */; };
+		0D9EE27A1978FEFF00AECFE1 /* miniMapLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2791978FEFF00AECFE1 /* miniMapLogo.png */; };
+		0D9EE27C1979007A00AECFE1 /* wallpaper.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE27B1979007A00AECFE1 /* wallpaper.jpeg */; };
 		E81E22C01978C7A80028120C /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */; };
 		E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229E1978C7A80028120C /* NSString+URLEncoding.m */; };
 		E81E22C21978C7A80028120C /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22A01978C7A80028120C /* NSURL+Base.m */; };
@@ -76,6 +83,17 @@
 		0D9EE23219789D7900AECFE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0D9EE23419789DF200AECFE1 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		0D9EE23519789DF200AECFE1 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		0D9EE25E1978E03600AECFE1 /* PaintingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintingWindow.h; sourceTree = "<group>"; };
+		0D9EE25F1978E03600AECFE1 /* PaintingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintingWindow.m; sourceTree = "<group>"; };
+		0D9EE2631978E9EA00AECFE1 /* ANBlurredImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBlurredImageView.h; sourceTree = "<group>"; };
+		0D9EE2641978E9EA00AECFE1 /* ANBlurredImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBlurredImageView.m; sourceTree = "<group>"; };
+		0D9EE2651978E9EA00AECFE1 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
+		0D9EE2661978E9EA00AECFE1 /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
+		0D9EE26D1978ECC500AECFE1 /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clouds.jpg; sourceTree = "<group>"; };
+		0D9EE2741978F5B700AECFE1 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		0D9EE2751978F5B700AECFE1 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		0D9EE2791978FEFF00AECFE1 /* miniMapLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = miniMapLogo.png; sourceTree = "<group>"; };
+		0D9EE27B1979007A00AECFE1 /* wallpaper.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wallpaper.jpeg; sourceTree = "<group>"; };
 		E81E229B1978C7A80028120C /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		E81E229D1978C7A80028120C /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -142,6 +160,8 @@
 		0D9EE1F1197899E200AECFE1 = {
 			isa = PBXGroup;
 			children = (
+				0D9EE2621978E9EA00AECFE1 /* ANBlurredImageView */,
+				0D9EE2611978E04000AECFE1 /* PaintingWindow */,
 				E81E22981978C7A80028120C /* Libraries */,
 				0D9EE203197899E200AECFE1 /* Where2Eat */,
 				0D9EE21C197899E300AECFE1 /* Where2EatTests */,
@@ -178,10 +198,10 @@
 				0D9EE20D197899E200AECFE1 /* AppDelegate.m */,
 				0D9EE22F19789CCA00AECFE1 /* MasterViewController.h */,
 				0D9EE23019789CCA00AECFE1 /* MasterViewController.m */,
-				0D9EE23419789DF200AECFE1 /* LocationManager.h */,
-				0D9EE23519789DF200AECFE1 /* LocationManager.m */,
-				0D9EE22C19789BD400AECFE1 /* CommonViewController.h */,
-				0D9EE22D19789BD400AECFE1 /* CommonViewController.m */,
+				0D9EE2741978F5B700AECFE1 /* SplashViewController.h */,
+				0D9EE2751978F5B700AECFE1 /* SplashViewController.m */,
+				0D9EE2771978FD1E00AECFE1 /* LocationManager */,
+				0D9EE2781978FD2E00AECFE1 /* Common */,
 				0D9EE20F197899E200AECFE1 /* Images.xcassets */,
 				0D9EE204197899E200AECFE1 /* Supporting Files */,
 			);
@@ -191,6 +211,7 @@
 		0D9EE204197899E200AECFE1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0D9EE26C1978ECC500AECFE1 /* image */,
 				0D9EE205197899E200AECFE1 /* Where2Eat-Info.plist */,
 				0D9EE206197899E200AECFE1 /* InfoPlist.strings */,
 				0D9EE209197899E200AECFE1 /* main.m */,
@@ -215,6 +236,54 @@
 				0D9EE21F197899E300AECFE1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0D9EE2611978E04000AECFE1 /* PaintingWindow */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE25E1978E03600AECFE1 /* PaintingWindow.h */,
+				0D9EE25F1978E03600AECFE1 /* PaintingWindow.m */,
+			);
+			name = PaintingWindow;
+			sourceTree = "<group>";
+		};
+		0D9EE2621978E9EA00AECFE1 /* ANBlurredImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE2631978E9EA00AECFE1 /* ANBlurredImageView.h */,
+				0D9EE2641978E9EA00AECFE1 /* ANBlurredImageView.m */,
+				0D9EE2651978E9EA00AECFE1 /* UIImage+BoxBlur.h */,
+				0D9EE2661978E9EA00AECFE1 /* UIImage+BoxBlur.m */,
+			);
+			path = ANBlurredImageView;
+			sourceTree = "<group>";
+		};
+		0D9EE26C1978ECC500AECFE1 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE27B1979007A00AECFE1 /* wallpaper.jpeg */,
+				0D9EE2791978FEFF00AECFE1 /* miniMapLogo.png */,
+				0D9EE26D1978ECC500AECFE1 /* clouds.jpg */,
+			);
+			path = image;
+			sourceTree = SOURCE_ROOT;
+		};
+		0D9EE2771978FD1E00AECFE1 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE23419789DF200AECFE1 /* LocationManager.h */,
+				0D9EE23519789DF200AECFE1 /* LocationManager.m */,
+			);
+			name = LocationManager;
+			sourceTree = "<group>";
+		};
+		0D9EE2781978FD2E00AECFE1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0D9EE22C19789BD400AECFE1 /* CommonViewController.h */,
+				0D9EE22D19789BD400AECFE1 /* CommonViewController.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		E81E22981978C7A80028120C /* Libraries */ = {
@@ -359,7 +428,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D9EE26E1978ECC500AECFE1 /* clouds.jpg in Resources */,
 				0D9EE208197899E200AECFE1 /* InfoPlist.strings in Resources */,
+				0D9EE27C1979007A00AECFE1 /* wallpaper.jpeg in Resources */,
+				0D9EE27A1978FEFF00AECFE1 /* miniMapLogo.png in Resources */,
 				0D9EE210197899E200AECFE1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,11 +454,13 @@
 				E81E22C41978C7A80028120C /* hmac.c in Sources */,
 				0D9EE23119789CCA00AECFE1 /* MasterViewController.m in Sources */,
 				E81E22C21978C7A80028120C /* NSURL+Base.m in Sources */,
+				0D9EE2761978F5B700AECFE1 /* SplashViewController.m in Sources */,
 				E81E22C81978C7A80028120C /* OADataFetcher.m in Sources */,
 				0D9EE23619789DF200AECFE1 /* LocationManager.m in Sources */,
 				E81E22D01978C7A80028120C /* OATokenManager.m in Sources */,
 				E81E22CE1978C7A80028120C /* OAServiceTicket.m in Sources */,
 				E81E22CF1978C7A80028120C /* OAToken.m in Sources */,
+				0D9EE2681978E9EA00AECFE1 /* UIImage+BoxBlur.m in Sources */,
 				E81E22CC1978C7A80028120C /* OAProblem.m in Sources */,
 				0D9EE20E197899E200AECFE1 /* AppDelegate.m in Sources */,
 				E81E22CB1978C7A80028120C /* OAPlaintextSignatureProvider.m in Sources */,
@@ -396,8 +470,10 @@
 				E81E22C51978C7A80028120C /* sha1.c in Sources */,
 				E81E22C01978C7A80028120C /* NSMutableURLRequest+Parameters.m in Sources */,
 				E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */,
+				0D9EE2601978E03600AECFE1 /* PaintingWindow.m in Sources */,
 				E81E22C31978C7A80028120C /* Base64Transcoder.c in Sources */,
 				E81E22C71978C7A80028120C /* OAConsumer.m in Sources */,
+				0D9EE2671978E9EA00AECFE1 /* ANBlurredImageView.m in Sources */,
 				0D9EE22E19789BD400AECFE1 /* CommonViewController.m in Sources */,
 				E81E22C61978C7A80028120C /* OACall.m in Sources */,
 				E81E22C91978C7A80028120C /* OAHMAC_SHA1SignatureProvider.m in Sources */,

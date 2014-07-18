@@ -9,6 +9,8 @@
 #import "MasterViewController.h"
 #import "LocationManager.h"
 #import "OAuthConsumer.h"
+#import "ANBlurredImageView.h"
+#include <stdlib.h>
 
 @interface MasterViewController ()
 
@@ -16,25 +18,43 @@
 
 @implementation MasterViewController {
     UILabel *nameLabel;
+    ANBlurredImageView *backgroundImage;
+    UISlider *radiusSlider;
+    
     NSMutableData *_responseData;
-    NSDictionary *dic;
+    NSDictionary *resultDic;
 }
 
 -(void)loadView
 {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor purpleColor];
+    backgroundImage = [[ANBlurredImageView alloc] initWithImage:[UIImage imageNamed:@"clouds.jpg"]];
+    [self.view addSubview:backgroundImage];
     
     nameLabel = [UILabel new];
-    nameLabel.frame = (CGRect){SVB.size.width/2-100/2, SVB.size.height/2-40/2, 100, 40};
+    nameLabel.frame = (CGRect){0, SVB.size.height/3-60/2, 320, 60};
     nameLabel.textColor = RGB(165, 230, 225);
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.text = @"Fetch...";
-    nameLabel.font = [UIFont systemFontOfSize:14];
-    nameLabel.backgroundColor = [UIColor blackColor];
+    nameLabel.text = @"Shake your phone!";
+    nameLabel.backgroundColor = RGBA(100, 100, 100, 0.3);
+    nameLabel.font = [UIFont boldSystemFontOfSize:20];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.numberOfLines = 0;
+    nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    //nameLabel.backgroundColor = [UIColor blackColor];
     [self.view addSubview:nameLabel];
     
+    UILabel *copyrightLabel = [UILabel new];
+    copyrightLabel.frame = (CGRect){0,SVB.size.height-30, SVB.size.width, 30};
+    //copyrightLabel.backgroundColor = [UIColor redColor];
+    copyrightLabel.text = @"Developed by Alex Wang & Kevin Cai.";
+    copyrightLabel.textColor = [UIColor grayColor];
+    copyrightLabel.textAlignment = NSTextAlignmentCenter;
+    copyrightLabel.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:copyrightLabel];
+    
+    radiusSlider = [[UISlider alloc] initWithFrame:(CGRect){30, SVB.size.height-60, SVB.size.width/2-30/2, 30}];
     
     
     [LM startUpdatingLocation];
@@ -43,64 +63,58 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    NSDateFormatter *dateF = [[NSDateFormatter alloc] init];
-    [dateF setDateStyle:NSDateFormatterFullStyle]; //this format will be according to your own.
     
-    NSDate *todayDate = [NSDate date];  //[dateF dateFromString: @"5-MAY-2011 00:00:00 +0000"]; //please note, this date format must match the NSDateFormatter Style, or else return null.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetch) name:@"shake" object:nil];
     
-    NSTimeInterval inter = [todayDate timeIntervalSince1970];
+//    NSDateFormatter *dateF = [[NSDateFormatter alloc] init];
+//    [dateF setDateStyle:NSDateFormatterFullStyle];
+//    NSDate *todayDate = [NSDate date];
+//    NSTimeInterval inter = [todayDate timeIntervalSince1970];
     
-    [self fetch];
-    
-    NSLog(@"%f", inter);
 }
-//
-//- (void) viewWillAppear:(BOOL)animated
-//{
-//    [shakeView becomeFirstResponder];
-//    [super viewWillAppear:animated];
-//}
-//- (void) viewWillDisappear:(BOOL)animated
-//{
-//    [shakeView resignFirstResponder];
-//    [super viewWillDisappear:animated];
-//}
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+-(void)viewDidAppear:(BOOL)animated
 {
-    if ( event.subtype == UIEventSubtypeMotionShake )
-    {
-        // Put in code here to handle shake
-        
-    }
-    
-    if ( [super respondsToSelector:@selector(motionEnded:withEvent:)] )
-        [super motionEnded:motion withEvent:event];
+    [super viewDidAppear:animated];
+    [backgroundImage setBlurTintColor:RGBA(0, 0, 0, 0.8)];
+    [backgroundImage generateBlurFramesWithCompletion:^{
+        [backgroundImage blurInAnimationWithDuration:0.25f];
+    }];
 }
+
+
+#pragma mark - Action
 
 -(void)didFinishFetch
 {
-    NSLog(@"%@", dic);
-    nameLabel.text= [NSString stringWithFormat:@"%@",dic[@"businesses"][0][@"name"]];//    [dic objectForKey:@"total"];
+    [self activity:NO];
+    
+    NSLog(@"%@", resultDic);
+    NSArray *restaurants = resultDic[@"businesses"];
+    if (restaurants.count == 0) {
+        nameLabel.text = @"No restaurants nearby";
+        return;
+    }
+    int randomNum = arc4random() % restaurants.count;
+    nameLabel.text= [NSString stringWithFormat:@"%@",resultDic[@"businesses"][randomNum][@"name"]];//    [dic objectForKey:@"total"];
 }
 
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
+
 
 
 #pragma mark - Yelp API
 
 - (void)fetch {
+    [self activity:YES];
     
     // OAuthConsumer doesn't handle pluses in URL, only percent escapes
     // OK: http://api.yelp.com/v2/search?term=restaurants&location=new%20york
     // FAIL: http://api.yelp.com/v2/search?term=restaurants&location=new+york
     
     // OAuthConsumer has been patched to properly URL escape the consumer and token secrets
+    CLLocation *currentLocation = [LM currentLocation];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=%f,%f&radius_filter=1000&limit=20&mode=1",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude]];
     
-    NSURL *URL = [NSURL URLWithString:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=43.472199,-80.542064&radius_filter=1000&limit=20&mode=1"];
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
     OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
     id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init] ;
@@ -136,7 +150,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    dic = [NSJSONSerialization JSONObjectWithData:_responseData options:nil error:NULL];
+    resultDic = [NSJSONSerialization JSONObjectWithData:_responseData options:0 error:NULL];
     [self didFinishFetch];
 }
 

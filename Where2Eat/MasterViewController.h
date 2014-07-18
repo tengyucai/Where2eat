@@ -7,6 +7,8 @@
 //
 
 #import "CommonViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface MasterViewController : CommonViewController
 
