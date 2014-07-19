@@ -39,6 +39,7 @@
     int finishedPages,totalPages;
     CLLocation *currentLocation;
     NSMutableArray *businesses;
+    NSDictionary *selectedBusiness;
 }
 
 -(void)loadView
@@ -86,6 +87,9 @@
     [radiusSlider addTarget:self
                      action:@selector(getSlidervalue:)
            forControlEvents:UIControlEventValueChanged];
+    [radiusSlider addTarget:self
+                  action:@selector(sliderDidEndSliding:)
+           forControlEvents:(UIControlEventTouchUpOutside|UIControlEventTouchUpInside)];
     [self.view addSubview:radiusSlider];
     
     mapVC = [MapViewController new];
@@ -118,8 +122,28 @@
     }];
 }
 
+#pragma UISlider
 
-#pragma mark - Action
+
+-(void)getSlidervalue:(UISlider*)slider
+{
+    if ([slider isEqual:radiusSlider]) {
+        float newValue = slider.value/10;
+        slider.value = floor(newValue)*10;
+        radius_filter = slider.value;
+        nameLabel.text = [NSString stringWithFormat:@"%0.0f m", slider.value];
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
+    NSLog(@"Current distance: %f", slider.value);
+}
+
+-(void)sliderDidEndSliding:(UISlider*)slider
+{
+    nameLabel.text = selectedBusiness ? [NSString stringWithFormat:@"%@",selectedBusiness[@"name"]] : @"Shake your phone!";
+}
+
+
+#pragma mark - Fetch
 
 -(void)didFinishFetch
 {
@@ -131,20 +155,12 @@
         return;
     }
     int randomNum = arc4random() % businesses.count;
-    nameLabel.text= [NSString stringWithFormat:@"%@",businesses[randomNum][@"name"]];//    [dic objectForKey:@"total"];
+    selectedBusiness = businesses[randomNum];
+    nameLabel.text= [NSString stringWithFormat:@"%@", selectedBusiness[@"name"]];//    [dic objectForKey:@"total"];
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
 }
 
--(void)getSlidervalue:(UISlider*)slider
-{
-    if ([slider isEqual:radiusSlider]) {
-        float newValue = slider.value/10;
-        slider.value = floor(newValue)*10;
-        radius_filter = slider.value;
-    }
-    NSLog(@"Current distance: %f", slider.value);
-    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
-}
+
 
 - (void)fetch {
     if (isRunning) return;
@@ -201,6 +217,8 @@
 -(void)addToBusinesses{
     [businesses addObjectsFromArray:resultDic[@"businesses"]];
 }
+
+#pragma mark - Action
 
 -(void)soundEffect
 {
