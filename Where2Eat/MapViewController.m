@@ -24,6 +24,12 @@
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
     
+    [self updateMap];
+    
+}
+
+-(void)updateMap
+{
     CLGeocoder *gecoder = [[CLGeocoder alloc]init];
     [gecoder geocodeAddressString:_address completionHandler:^(NSArray *placemarks, NSError *error) {
         
@@ -38,7 +44,12 @@
         }
         
     }];
-    
+}
+
+-(void)setAddress:(NSString *)address
+{
+    _address = address;
+    [self updateMap];
 }
 
 #pragma mark - MapView delegate
