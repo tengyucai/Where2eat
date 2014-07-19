@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437802.439191"
+            timestampString = "427438601.926162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "-fetch"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437802.439191"
+            timestampString = "427438601.926162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "-fetch"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437802.439191"
+            timestampString = "427438774.557413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-detailAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437802.439191"
+            timestampString = "427438601.926162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "124"
@@ -90,7 +90,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437695.89284"
+            timestampString = "427438774.557413"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "-connectionDidFinishLoading:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Where2Eat/MasterViewController.m"
+            timestampString = "427438774.557413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "276"
@@ -106,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Where2Eat/MasterViewController.m"
-            timestampString = "427437723.545244"
+            timestampString = "427438655.595574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "-connectionDidFinishLoading:"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "-didFinishFetch"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

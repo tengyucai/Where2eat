@@ -84,6 +84,7 @@
            forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:radiusSlider];
     
+    mapVC = [MapViewController new];
     
     // change later, use NSUserDefault
     radius_filter = radiusSlider.value;
@@ -121,13 +122,13 @@
     [self activity:NO];
     
     NSLog(@"%@", resultDic);
-    NSArray *restaurants = resultDic[@"businesses"];
-    if (restaurants.count == 0) {
+    if (businesses.count == 0) {
         nameLabel.text = @"No restaurants nearby";
         return;
     }
-    int randomNum = arc4random() % restaurants.count;
-    nameLabel.text= [NSString stringWithFormat:@"%@",resultDic[@"businesses"][randomNum][@"name"]];//    [dic objectForKey:@"total"];
+    int randomNum = arc4random() % businesses.count;
+    nameLabel.text= [NSString stringWithFormat:@"%@",businesses[randomNum][@"name"]];//    [dic objectForKey:@"total"];
+    mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
 }
 
 -(void)getSlidervalue:(UISlider*)slider
@@ -214,8 +215,8 @@
 {
     if (!showMap) {
         
-        mapVC = [MapViewController new];
-        mapVC.address = @"200 University Avenue, Waterloo, ON";
+//        mapVC = [MapViewController new];
+        //mapVC.address = @"200 University Avenue, Waterloo, ON";
         float y = 20+nameLabel.bounds.size.height;
         mapVC.view.frame = (CGRect){0, y, SVB.size.width, SVB.size.height-y-70};
         mapVC.view.alpha = 0;
