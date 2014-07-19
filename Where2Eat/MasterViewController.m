@@ -13,6 +13,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #include <stdlib.h>
+#import "MapViewController.h"
 
 @interface MasterViewController ()
 
@@ -25,6 +26,8 @@
     UILabel *nameLabel;
     ANBlurredImageView *backgroundImage;
     UISlider *radiusSlider;
+    MapViewController *mapVC;
+    BOOL showMap;
     
     float radius_filter;
     
@@ -49,7 +52,9 @@
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.numberOfLines = 0;
     nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    //nameLabel.backgroundColor = [UIColor blackColor];
+    nameLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(detailAction:)];
+    [nameLabel addGestureRecognizer:gr];
     [self.view addSubview:nameLabel];
     
     UILabel *copyrightLabel = [UILabel new];
@@ -165,6 +170,43 @@
     _effectPlayer.volume = 1;
     [_effectPlayer prepareToPlay];
     [_effectPlayer play];
+    
+}
+
+-(void)detailAction:(UIGestureRecognizer*)gr
+{
+    if (!showMap) {
+        
+        mapVC = [MapViewController new];
+        mapVC.address = @"200 University Avenue, Waterloo, ON";
+        float y = 20+nameLabel.bounds.size.height;
+        mapVC.view.frame = (CGRect){0, y, SVB.size.width, SVB.size.height-y-70};
+        mapVC.view.alpha = 0;
+        [self addChildViewController:mapVC];
+        [self.view addSubview:mapVC.view];
+        [mapVC didMoveToParentViewController:self];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            nameLabel.frame = rectY(nameLabel.frame, 20);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.3 animations:^{
+                mapVC.view.alpha = 1;
+            }];
+            showMap = YES;
+        }];
+        
+    } else {
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            mapVC.view.alpha = 0;
+            nameLabel.frame = rectY(nameLabel.frame, SVB.size.height/3-60/2);
+        } completion:^(BOOL finished) {
+            [mapVC removeFromParentViewController];
+            showMap = NO;
+        }];
+        
+    }
+    
     
 }
 

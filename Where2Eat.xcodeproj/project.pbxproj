@@ -37,6 +37,7 @@
 		0D9EE2881979783900AECFE1 /* polaroid_camera_take_picture_01.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2821979783900AECFE1 /* polaroid_camera_take_picture_01.aiff */; };
 		0D9EE2891979783900AECFE1 /* Ta_Da.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0D9EE2831979783900AECFE1 /* Ta_Da.aiff */; };
 		0D9EE28B197978F700AECFE1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9EE28A197978F700AECFE1 /* AudioToolbox.framework */; };
+		0D9FB4DA197A24BA00A18B8E /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9FB4D9197A24BA00A18B8E /* MapViewController.m */; };
 		E81E22C01978C7A80028120C /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */; };
 		E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E229E1978C7A80028120C /* NSString+URLEncoding.m */; };
 		E81E22C21978C7A80028120C /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22A01978C7A80028120C /* NSURL+Base.m */; };
@@ -108,6 +109,8 @@
 		0D9EE2821979783900AECFE1 /* polaroid_camera_take_picture_01.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = polaroid_camera_take_picture_01.aiff; sourceTree = "<group>"; };
 		0D9EE2831979783900AECFE1 /* Ta_Da.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Ta_Da.aiff; sourceTree = "<group>"; };
 		0D9EE28A197978F700AECFE1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0D9FB4D8197A24BA00A18B8E /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		0D9FB4D9197A24BA00A18B8E /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E81E229B1978C7A80028120C /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		E81E229C1978C7A80028120C /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		E81E229D1978C7A80028120C /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				0D9EE20D197899E200AECFE1 /* AppDelegate.m */,
 				0D9EE22F19789CCA00AECFE1 /* MasterViewController.h */,
 				0D9EE23019789CCA00AECFE1 /* MasterViewController.m */,
+				0D9FB4D8197A24BA00A18B8E /* MapViewController.h */,
+				0D9FB4D9197A24BA00A18B8E /* MapViewController.m */,
 				0D9EE2741978F5B700AECFE1 /* SplashViewController.h */,
 				0D9EE2751978F5B700AECFE1 /* SplashViewController.m */,
 				0D9EE2771978FD1E00AECFE1 /* LocationManager */,
@@ -508,6 +513,7 @@
 				E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */,
 				0D9EE2601978E03600AECFE1 /* PaintingWindow.m in Sources */,
 				E81E22C31978C7A80028120C /* Base64Transcoder.c in Sources */,
+				0D9FB4DA197A24BA00A18B8E /* MapViewController.m in Sources */,
 				E81E22C71978C7A80028120C /* OAConsumer.m in Sources */,
 				0D9EE2671978E9EA00AECFE1 /* ANBlurredImageView.m in Sources */,
 				0D9EE22E19789BD400AECFE1 /* CommonViewController.m in Sources */,
