@@ -13,6 +13,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #include <stdlib.h>
+#include <math.h>
 #import "MapViewController.h"
 
 @interface MasterViewController ()
@@ -271,7 +272,7 @@
     finishedPages++;
     resultDic = [NSJSONSerialization JSONObjectWithData:_responseData options:0 error:NULL];
     if (isFirstPage){
-        NSInteger num=resultDic[@"total"];
+        NSInteger num=[resultDic[@"total"] integerValue];
         totalPages=MIN((num-1) / 20+1, 5);
     }
     [self addToBusinesses];
