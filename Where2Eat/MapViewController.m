@@ -38,6 +38,7 @@
             
             MKPointAnnotation *annotation = [MKPointAnnotation new];
             annotation.coordinate = placemark.location.coordinate;
+            [mapView removeAnnotations:[mapView annotations]];
             [mapView addAnnotation:annotation];
             
             mapView.region = MKCoordinateRegionMake(annotation.coordinate, MKCoordinateSpanMake(0.01, 0.01));

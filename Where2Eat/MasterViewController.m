@@ -79,7 +79,11 @@
     radiusSlider = [[UISlider alloc] initWithFrame:(CGRect){30, SVB.size.height-60, SVB.size.width-2*30, 30}];
     radiusSlider.minimumValue = 100.0f;
     radiusSlider.maximumValue = 40000.0f;
-    radiusSlider.value = 1000.0f;
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"Radius"]!=nil){
+        radiusSlider.value=[[[NSUserDefaults standardUserDefaults]objectForKey:@"Radius"] floatValue];
+    } else {
+        radiusSlider.value = 1000.0f;
+    }
     [radiusSlider addTarget:self
                      action:@selector(getSlidervalue:)
            forControlEvents:UIControlEventValueChanged];
@@ -156,6 +160,19 @@
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
 }
 
+<<<<<<< HEAD
+=======
+-(void)getSlidervalue:(UISlider*)slider
+{
+    if ([slider isEqual:radiusSlider]) {
+        float newValue = slider.value/10;
+        slider.value = floor(newValue)*10;
+        radius_filter = slider.value;
+    }
+    NSLog(@"Current distance: %f", slider.value);
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
+}
+>>>>>>> 723bf47a77458d2c6f5b7e045a98aa0fed077685
 
 - (void)fetch {
     if (isRunning) return;
