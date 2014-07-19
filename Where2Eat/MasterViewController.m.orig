@@ -27,7 +27,6 @@
     UILabel *nameLabel;
     ANBlurredImageView *backgroundImage;
     UISlider *radiusSlider;
-    
     MapViewController *mapVC;
     BOOL showMap;
     
@@ -64,10 +63,8 @@
     nameLabel.numberOfLines = 0;
     nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     nameLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tabGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapAction:)];
-    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(filterAction:)];
-    [nameLabel addGestureRecognizer:tabGR];
-    [nameLabel addGestureRecognizer:panGR];
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(detailAction:)];
+    [nameLabel addGestureRecognizer:gr];
     [self.view addSubview:nameLabel];
     
     UILabel *copyrightLabel = [UILabel new];
@@ -80,13 +77,12 @@
     [self.view addSubview:copyrightLabel];
     
     radiusSlider = [[UISlider alloc] initWithFrame:(CGRect){30, SVB.size.height-60, SVB.size.width-2*30, 30}];
-    radiusSlider.minimumValue = 0.0f;
-    radiusSlider.maximumValue = 1.0f;
-    radiusSlider.tintColor = [UIColor grayColor];
+    radiusSlider.minimumValue = 100.0f;
+    radiusSlider.maximumValue = 40000.0f;
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"Radius"]!=nil){
         radiusSlider.value=[[[NSUserDefaults standardUserDefaults]objectForKey:@"Radius"] floatValue];
     } else {
-        radiusSlider.value = sqrt(1000.0f/40000.0f);
+        radiusSlider.value = 1000.0f;
     }
     [radiusSlider addTarget:self
                      action:@selector(getSlidervalue:)
@@ -132,15 +128,13 @@
 -(void)getSlidervalue:(UISlider*)slider
 {
     if ([slider isEqual:radiusSlider]) {
-//        float newValue = slider.value/10;
-//        slider.value = floor(newValue)*10;
-        radius_filter = slider.value * slider.value * 40000;
-        nameLabel.text = [NSString stringWithFormat:@"%0.0f m", radius_filter];
+        float newValue = slider.value/10;
+        slider.value = floor(newValue)*10;
+        radius_filter = slider.value;
+        nameLabel.text = [NSString stringWithFormat:@"%0.0f m", slider.value];
     }
     
-    NSLog(@"Current distance: %f", radius_filter);
-    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
-
+    NSLog(@"Current distance: %f", slider.value);
 }
 
 -(void)sliderDidEndSliding:(UISlider*)slider
@@ -166,7 +160,19 @@
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
 }
 
-
+<<<<<<< HEAD
+=======
+-(void)getSlidervalue:(UISlider*)slider
+{
+    if ([slider isEqual:radiusSlider]) {
+        float newValue = slider.value/10;
+        slider.value = floor(newValue)*10;
+        radius_filter = slider.value;
+    }
+    NSLog(@"Current distance: %f", slider.value);
+    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
+}
+>>>>>>> 723bf47a77458d2c6f5b7e045a98aa0fed077685
 
 - (void)fetch {
     if (isRunning) return;
@@ -240,7 +246,7 @@
     
 }
 
--(void)mapAction:(UIGestureRecognizer*)gr
+-(void)detailAction:(UIGestureRecognizer*)gr
 {
     if (!showMap) {
         
@@ -273,52 +279,8 @@
         }];
         
     }
-}
-
--(void)filterAction:(UIGestureRecognizer*)gr
-{
-    if (showMap) {
-        return;
-    }
-    static CGPoint startPoint;
-    static CGRect selectedRectFrame;
-    if (gr.state == UIGestureRecognizerStateBegan) {
-        
-        gr.view.transform = CGAffineTransformIdentity;
-        selectedRectFrame = gr.view.frame;
-        startPoint = [gr locationInView:self.view];
-        
-    } else if (gr.state == UIGestureRecognizerStateChanged) {
-        
-        CGPoint newPoint = [gr locationInView:self.view];
-        //gr.view.frame = rectX(gr.view.frame, selectedRectFrame.origin.x + newPoint.x - startPoint.x);
-        if (newPoint.y >= startPoint.y) {
-            gr.view.frame = rectY(gr.view.frame, selectedRectFrame.origin.y + newPoint.y - startPoint.y);
-        }
-        
-        
-    } else if (gr.state == UIGestureRecognizerStateEnded) {
-        
-        CGPoint endPoint = [gr locationInView:self.view];
-        if (endPoint.y >= (startPoint.y + gr.view.bounds.size.height)) {
-            [UIView animateWithDuration:0.5 animations:^{
-                gr.view.frame = rectY(gr.view.frame, SVB.size.height-150);
-            } completion:^(BOOL finished) {
-                
-            }];
-            
-        } else {
-            [UIView animateWithDuration:0.5 animations:^{
-                gr.view.frame = (CGRect){0, SVB.size.height/3-80/2, 320, 80};
-            } completion:^(BOOL finished) {
-                
-            }];
-            
-        }
-        
-    } else if (gr.state == UIGestureRecognizerStateFailed) {
-        
-    }
+    
+    
 }
 
 #pragma mark - Yelp API
