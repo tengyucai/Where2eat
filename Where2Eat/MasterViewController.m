@@ -45,6 +45,9 @@
     FilterViewController* filterVC;
     NSMutableArray *filterNames;
     NSString* filterString;
+    
+    
+    NSDictionary* filterMapping;
 }
 
 -(void)loadView
@@ -115,6 +118,11 @@
         filterNames=[[NSMutableArray alloc]init];
     }
     filterVC.selectedFilters=filterNames;
+    
+    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]  pathForResource:@"filter" ofType:@"json"]];
+    filterMapping = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+    
+    
     
     [LM startUpdatingLocation];
 }
@@ -192,7 +200,16 @@
     businesses=[[NSMutableArray alloc]init];
     finishedPages=0;
     filterNames=[filterVC getFilters];
-    filterString=[filterNames containsObject:@"All"]?@"":[filterNames componentsJoinedByString:@","];
+    NSMutableArray* mappedFilterNames=[[NSMutableArray alloc]init];
+    for (int i=0;i<filterNames.count;i++){
+        if (filterMapping[filterNames[i]]!=nil){
+            mappedFilterNames[i]=filterMapping[filterNames[i]];
+        } else {
+            mappedFilterNames[i]=filterNames[i];
+        }
+    }
+    filterString = [mappedFilterNames containsObject:@"All"] ? @"" : [[mappedFilterNames componentsJoinedByString:@","] lowercaseString];
+    NSLog(filterString);
     [self saveFilters];
     [self activity:YES];
     [self soundEffect];
