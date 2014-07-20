@@ -46,7 +46,7 @@
 
 -(void)transitionFromSplash{
     
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:1.5 animations:^{
         masterVC.view.alpha = 1.0;
         splashVC.view.alpha = 0.0;
     } completion:^(BOOL finished) {
