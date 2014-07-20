@@ -22,7 +22,7 @@
     
     UILabel *splashLabel = [UILabel new];
     splashLabel.frame = SVF;
-    splashLabel.text = @"WHERE\n 2\n EAT";
+    splashLabel.text = @"WHERE\n2\nEAT";
     splashLabel.textAlignment = NSTextAlignmentCenter;
     splashLabel.textColor = [UIColor whiteColor];
     splashLabel.numberOfLines = 0;

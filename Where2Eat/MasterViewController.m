@@ -28,6 +28,8 @@
     UILabel *nameLabel;
     ANBlurredImageView *backgroundImage;
     UISlider *radiusSlider;
+    UIImageView *yelpLogo;
+    UIImageView *yelpRating;
     
     MapViewController *mapVC;
     BOOL showMap;
@@ -54,7 +56,7 @@
 {
     [super loadView];
     isRunning=NO;
-    backgroundImage = [[ANBlurredImageView alloc] initWithImage:[UIImage imageNamed:@"clouds.jpg"]];
+    //backgroundImage = [[ANBlurredImageView alloc] initWithImage:[UIImage imageNamed:@"clouds.jpg"]];
     //[self.view addSubview:backgroundImage];
 //    self.view.backgroundColor = RGB(48, 29, 150);
     self.view.backgroundColor = RGB(240, 170, 80);
@@ -64,7 +66,7 @@
 //    nameLabel.textColor = RGB(165, 230, 225);
     nameLabel.textColor = RGB(255,255,255);
     nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.text = @"Shake your phone!";
+    nameLabel.text = @"SHAKE YOUR PHONE!";
     nameLabel.backgroundColor = RGBA(150, 150, 150, 0.3);
     nameLabel.font = [UIFont boldSystemFontOfSize:30];
     nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -76,6 +78,22 @@
     [nameLabel addGestureRecognizer:tabGR];
     [nameLabel addGestureRecognizer:panGR];
     [self.view addSubview:nameLabel];
+    
+
+    float y = CGRectGetMaxY(nameLabel.frame)+10;
+    
+    yelpLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"miniMapLogo"]];
+    yelpLogo.frame = (CGRect){SVB.size.width/3-yelpLogo.bounds.size.width, y, yelpLogo.bounds.size};
+    //yelpLogo.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:yelpLogo];
+    
+    float x = CGRectGetMaxX(yelpLogo.frame) + 10;
+    
+    yelpRating = [[UIImageView alloc] initWithFrame:(CGRect){x, y, 3*yelpLogo.frame.size.width, yelpLogo.frame.size.height}];
+    //yelpRating.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:yelpRating];
+    
+    [self displayRating:NO];
     
     UILabel *copyrightLabel = [UILabel new];
     copyrightLabel.frame = (CGRect){0,SVB.size.height-30, SVB.size.width, 30};
@@ -170,7 +188,7 @@
 
 -(void)sliderDidEndSliding:(UISlider*)slider
 {
-    nameLabel.text = selectedBusiness ? [NSString stringWithFormat:@"%@",selectedBusiness[@"name"]] : @"Shake your phone!";
+    nameLabel.text = selectedBusiness ? [NSString stringWithFormat:@"%@",selectedBusiness[@"name"]] : @"SHAKE YOUR PHONE!";
 }
 
 
@@ -178,8 +196,6 @@
 
 -(void)didFinishFetch
 {
-    [self activity:NO];
-    
     NSLog(@"%@", resultDic);
     if (businesses.count == 0) {
         nameLabel.text = @"No restaurants nearby";
@@ -187,10 +203,24 @@
     }
     int randomNum = arc4random() % businesses.count;
     selectedBusiness = businesses[randomNum];
+    [self fetchRatingImage];
+    [self displayRating:YES];
     nameLabel.text= [NSString stringWithFormat:@"%@", selectedBusiness[@"name"]];//    [dic objectForKey:@"total"];
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
+    
+    
+    [self activity:NO];
 }
 
+
+-(void)fetchRatingImage
+{
+    NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:selectedBusiness[@"rating_img_url"]]];
+    yelpRating.image = [UIImage imageWithData:imageData];
+    yelpRating.frame = rectWidth(yelpRating.frame, yelpRating.bounds.size.width);
+    yelpRating.layer.borderColor = RGB(240, 170, 80).CGColor;
+    yelpRating.layer.borderWidth = 3.0f;
+}
 
 
 - (void)fetch {
@@ -277,6 +307,17 @@
     
 }
 
+-(void)displayRating:(BOOL)display
+{
+    if (display) {
+        yelpLogo.alpha = 1;
+        yelpRating.alpha = 1;
+    } else {
+        yelpLogo.alpha = 0;
+        yelpRating.alpha = 0;
+    }
+}
+
 -(void)mapAction:(UIGestureRecognizer*)gr
 {
     if (!showMap) {
@@ -304,7 +345,7 @@
         
         [UIView animateWithDuration:0.5 animations:^{
             mapVC.view.alpha = 0;
-            nameLabel.frame = rectY(nameLabel.frame, SVB.size.height/3-60/2);
+            nameLabel.frame = rectY(nameLabel.frame, SVB.size.height/3-80/2);
         } completion:^(BOOL finished) {
             [mapVC removeFromParentViewController];
             showMap = NO;
@@ -413,6 +454,7 @@
         for (int i=0;i<businesses.count;i++){
             NSLog(businesses[i][@"name"]);
         }
+        
         [self didFinishFetch];
     }
 }
