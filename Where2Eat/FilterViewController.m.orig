@@ -16,9 +16,21 @@
 
 @implementation FilterViewController {
  
-    
+    NSMutableArray *selectedFilters;
     NSArray* filterNames;
     
+}
+
+
+- (UIColor*)randomColor{
+    CGFloat hue;
+    do {
+        hue=arc4random() % 256 / 256.0 ;
+    } while ( !((fabsf(hue-240.0f/256.0f)>0.1f)&&(fabsf(hue+1-240.0f/256.0f)>0.1f)));  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 800.0 ) + 0.4;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 800.0 ) + 0.75;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    return color;
 }
 
 - (void)viewDidLoad{
@@ -55,80 +67,71 @@
         filter.textAlignment=NSTextAlignmentCenter;
         filter.textColor=[UIColor whiteColor];
         filter.font=[UIFont fontWithName:@"HiraKakuProN-W3-Bold" size:15];
-        filter.alpha=0.4f;
+<<<<<<< HEAD
+        filter.alpha=0.2f;
         filter.tag = 0;
+=======
+        filter.alpha=0.4f;
+>>>>>>> d07f39beb1991dd8f1077c2d0669557ce8ec6b99
         filter.lineBreakMode = NSLineBreakByWordWrapping;
         filter.numberOfLines = 0;
         filter.userInteractionEnabled = YES;
         filter.frame=(CGRect){(i%3)*SVB.size.width/3+2,i/3*SVB.size.height/6+2,SVB.size.width/3-4,SVB.size.height/6-4};
         filter.backgroundColor=[self randomColor];
         filter.autoresizingMask = FLEX_SIZE;
-        [self setValue:filter.text withKey:@"filterNames" forObject:filter];
         UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectCategory:)];
         [filter addGestureRecognizer:gr];
         [self.view addSubview:filter];
     }
-    
 }
-
-
-- (UIColor*)randomColor{
-    CGFloat hue;
-    do {
-        hue=arc4random() % 256 / 256.0 ;
-    } while ( !((fabsf(hue-240.0f/256.0f)>0.1f)&&(fabsf(hue+1-240.0f/256.0f)>0.1f)));  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 800.0 ) + 0.4;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 800.0 ) + 0.75;  //  0.5 to 1.0, away from black
-    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-    return color;
-}
-
 
 #pragma mark - data source
 
+<<<<<<< HEAD
 - (NSArray*)getFilters
 {
-    return _selectedFilters;
-}
-
--(void)setSelectedFilters:(NSMutableArray *)selectedFilters
-{
-    _selectedFilters = selectedFilters;
-    for (NSString *text in _selectedFilters) {
-        UILabel *selectdLabel = [self getObjectWithKey:@"filterNames" value:text];
-        selectdLabel.tag = 1;
-        selectdLabel.alpha = 0.85f;
-    }
-    
+    return selectedFilters;
+=======
+- (NSArray*)getFilters{
+    return filters;
+>>>>>>> d07f39beb1991dd8f1077c2d0669557ce8ec6b99
 }
 
 #pragma mark - Action
 
 - (void)selectCategory:(UIGestureRecognizer*)gr
 {
+<<<<<<< HEAD
+=======
+    gr.view.alpha = gr.view.alpha == 0.85f ? 0.4f : 0.85f;
+>>>>>>> d07f39beb1991dd8f1077c2d0669557ce8ec6b99
     UILabel *selected = (UILabel*)gr.view;
     if (selected.tag == 0) {
         selected.tag = 1;
         selected.alpha = 0.85f;
-        [_selectedFilters addObject:selected.text];
+        [selectedFilters addObject:selected.text];
     } else {
         selected.tag = 0;
         selected.alpha = 0.4f;
-        [_selectedFilters removeObject:selected.text];
+        [selectedFilters removeObject:selected.text];
     }
     if ([selected.text isEqualToString:@"All"]) {
         for (UIView *filter in self.view.subviews) {
             if ([filter isKindOfClass:[UILabel class]]) {
                 UILabel *tmpLabel = (UILabel*)filter;
+<<<<<<< HEAD
                 if (selected.tag == 0) {
                     tmpLabel.tag = 0;
                     tmpLabel.alpha = 0.4f;
-                    [_selectedFilters addObject:tmpLabel.text];
+                    [selectedFilters addObject:tmpLabel.text];
                 } else {
                     tmpLabel.tag = 1;
                     tmpLabel.alpha = 0.85f;
-                    [_selectedFilters removeObject:tmpLabel.text];
+                    [selectedFilters removeObject:tmpLabel.text];
                 }
+=======
+                tmpLabel.alpha = gr.view.alpha == 0.85f ? 0.85f : 0.4f;
+>>>>>>> d07f39beb1991dd8f1077c2d0669557ce8ec6b99
             }
         }
     }

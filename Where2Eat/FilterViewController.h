@@ -11,6 +11,7 @@
 
 @interface FilterViewController : CommonViewController
 
+@property (nonatomic, strong) NSMutableArray *selectedFilters;
 - (NSArray*)getFilters;
 
 @end
