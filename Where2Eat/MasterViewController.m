@@ -198,9 +198,11 @@
 
 -(void)didFinishFetch
 {
+    [self activity:NO];
     NSLog(@"%@", resultDic);
     if (businesses.count == 0) {
         nameLabel.text = @"No restaurants nearby";
+        selectedBusiness = NULL;
         return;
     }
     int randomNum = arc4random() % businesses.count;
@@ -216,7 +218,6 @@
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
     
     
-    [self activity:NO];
 }
 
 
@@ -461,6 +462,9 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error: %@, %@", [error localizedDescription], [error localizedFailureReason]);
+    [self activity:NO];
+    nameLabel.text=@"check your connection";
+    isRunning=false;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
