@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "LocationManager.h"
 
 @interface MapViewController ()
 
@@ -22,6 +23,7 @@
     
     mapView = [[MKMapView alloc]init];
     mapView.frame = self.view.bounds;
+    //mapView.delegate = self;
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
     
@@ -48,10 +50,15 @@
             
             MKPointAnnotation *annotation = [MKPointAnnotation new];
             annotation.coordinate = placemark.location.coordinate;
+            annotation.title = _address;
+            MKPointAnnotation *myLocation = [MKPointAnnotation new];
+            myLocation.coordinate = [LM currentLocation].coordinate;
+            myLocation.title = @"My location";
             [mapView removeAnnotations:[mapView annotations]];
             [mapView addAnnotation:annotation];
+            [mapView addAnnotation:myLocation];
             
-            mapView.region = MKCoordinateRegionMake(annotation.coordinate, MKCoordinateSpanMake(0.01, 0.01));
+            mapView.region = MKCoordinateRegionMake(annotation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
         }
         
     }];
@@ -72,8 +79,9 @@
     if (!pin) {
         pin = [MKPinAnnotationView new];
     }
-    
     pin.annotation = annotation;
+    pin.animatesDrop = YES;
+
     
     return pin;
 }
