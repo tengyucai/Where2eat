@@ -102,12 +102,11 @@
     
     // change later, use NSUserDefault
     radius_filter = radiusSlider.value*radiusSlider.value*40000;
-<<<<<<< HEAD
-=======
+
     
     filterVC=[FilterViewController new];
 //    filterVC.view.frame=self.view.frame;
->>>>>>> 36564e97fb9ee808d10869e89d07d8a3486500c9
+
     
     [LM startUpdatingLocation];
 }
@@ -149,12 +148,8 @@
     NSLog(@"Current distance: %f", radius_filter);
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
 
-<<<<<<< HEAD
 
-    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
-    NSLog(@"Current distance: %f", slider.value);
-=======
->>>>>>> 36564e97fb9ee808d10869e89d07d8a3486500c9
+
 }
 
 -(void)sliderDidEndSliding:(UISlider*)slider
