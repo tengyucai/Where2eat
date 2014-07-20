@@ -27,7 +27,8 @@
     
     locationLabel = [UILabel new];
     locationLabel.frame = (CGRect){0, 0, SVB.size.width, 50};
-    locationLabel.backgroundColor = [UIColor blackColor];
+    locationLabel.backgroundColor = RGBA(150, 150, 150, 0.5);
+    locationLabel.textColor = [UIColor whiteColor];
     locationLabel.textAlignment = NSTextAlignmentCenter;
     locationLabel.numberOfLines = 0;
     locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -54,6 +55,7 @@
         }
         
     }];
+    locationLabel.text = _address;
 }
 
 -(void)setAddress:(NSString *)address
