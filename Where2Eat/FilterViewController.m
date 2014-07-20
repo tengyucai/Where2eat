@@ -23,9 +23,12 @@
 
 
 - (UIColor*)randomColor{
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    CGFloat hue;
+    do {
+        hue=arc4random() % 256 / 256.0 ;
+    } while ( !((fabsf(hue-240.0f/256.0f)>0.1f)&&(fabsf(hue+1-240.0f/256.0f)>0.1f)));  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 800.0 ) + 0.4;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 800.0 ) + 0.75;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     return color;
 }
@@ -64,7 +67,7 @@
         filter.textAlignment=NSTextAlignmentCenter;
         filter.textColor=[UIColor whiteColor];
         filter.font=[UIFont fontWithName:@"HiraKakuProN-W3-Bold" size:15];
-        filter.alpha=0.2f;
+        filter.alpha=0.4f;
         filter.lineBreakMode = NSLineBreakByWordWrapping;
         filter.numberOfLines = 0;
         filter.userInteractionEnabled = YES;
@@ -87,13 +90,13 @@
 
 - (void)selectCategory:(UIGestureRecognizer*)gr
 {
-    gr.view.alpha = gr.view.alpha == 0.8f ? 0.2f : 0.8f;
+    gr.view.alpha = gr.view.alpha == 0.85f ? 0.4f : 0.85f;
     UILabel *selected = (UILabel*)gr.view;
     if ([selected.text isEqualToString:@"All"]) {
         for (UIView *filter in self.view.subviews) {
             if ([filter isKindOfClass:[UILabel class]]) {
                 UILabel *tmpLabel = (UILabel*)filter;
-                tmpLabel.alpha = gr.view.alpha == 0.8f ? 0.8f : 0.2f;
+                tmpLabel.alpha = gr.view.alpha == 0.85f ? 0.85f : 0.4f;
             }
         }
     }
