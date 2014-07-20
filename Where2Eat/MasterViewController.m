@@ -463,7 +463,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error: %@, %@", [error localizedDescription], [error localizedFailureReason]);
     [self activity:NO];
-    nameLabel.text=@"check your connection";
+    nameLabel.text=@"Check network connection";
     isRunning=false;
 }
 

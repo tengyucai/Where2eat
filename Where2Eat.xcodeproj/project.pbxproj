@@ -70,7 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D9EE1FA197899E200AECFE1 /* Where2Eat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Where2Eat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D9EE1FA197899E200AECFE1 /* Shake2Eat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shake2Eat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D9EE1FD197899E200AECFE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0D9EE1FF197899E200AECFE1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0D9EE201197899E200AECFE1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -196,7 +196,7 @@
 		0D9EE1FB197899E200AECFE1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0D9EE1FA197899E200AECFE1 /* Where2Eat.app */,
+				0D9EE1FA197899E200AECFE1 /* Shake2Eat.app */,
 				0D9EE215197899E300AECFE1 /* Where2EatTests.xctest */,
 			);
 			name = Products;
@@ -414,7 +414,7 @@
 			);
 			name = Where2Eat;
 			productName = Where2Eat;
-			productReference = 0D9EE1FA197899E200AECFE1 /* Where2Eat.app */;
+			productReference = 0D9EE1FA197899E200AECFE1 /* Shake2Eat.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0D9EE214197899E300AECFE1 /* Where2EatTests */ = {
@@ -653,7 +653,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Where2Eat/Where2Eat-Prefix.pch";
 				INFOPLIST_FILE = "Where2Eat/Where2Eat-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shake2Eat;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -671,7 +671,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Where2Eat/Where2Eat-Prefix.pch";
 				INFOPLIST_FILE = "Where2Eat/Where2Eat-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Shake2Eat;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

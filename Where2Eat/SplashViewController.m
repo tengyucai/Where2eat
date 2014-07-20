@@ -18,11 +18,11 @@
 {
     [super loadView];
     
-    self.view.backgroundColor = RGB(30, 125, 215);
+    self.view.backgroundColor = RGB(240, 170, 80);
     
     UILabel *splashLabel = [UILabel new];
     splashLabel.frame = SVF;
-    splashLabel.text = @"WHERE\n2\nEAT";
+    splashLabel.text = @"WHERE\nTO\nEAT";
     splashLabel.textAlignment = NSTextAlignmentCenter;
     splashLabel.textColor = [UIColor whiteColor];
     splashLabel.numberOfLines = 0;
