@@ -99,7 +99,7 @@
     mapVC = [MapViewController new];
     
     // change later, use NSUserDefault
-    radius_filter = radiusSlider.value;
+    radius_filter = radiusSlider.value*radiusSlider.value*40000;
     
     [LM startUpdatingLocation];
 }
@@ -137,15 +137,13 @@
         radius_filter = slider.value * slider.value * 40000;
         nameLabel.text = [NSString stringWithFormat:@"%0.0f m", radius_filter];
     }
-<<<<<<< HEAD
     
     NSLog(@"Current distance: %f", radius_filter);
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
 
-=======
+
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
     NSLog(@"Current distance: %f", slider.value);
->>>>>>> 40c17b3b2fafc7c5c0c7ff01fbd868908b6692fa
 }
 
 -(void)sliderDidEndSliding:(UISlider*)slider
