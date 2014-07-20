@@ -45,6 +45,7 @@
     NSMutableArray *businesses;
     NSDictionary *selectedBusiness;
     FilterViewController* filterVC;
+    BOOL showFilter;
     NSMutableArray *filterNames;
     NSString* filterString;
     
@@ -131,11 +132,12 @@
 //    filterVC.view.frame=self.view.frame;
     
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]!=nil){
-        filterNames=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]];
+        filterNames = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]];
     } else {
-        filterNames=[[NSMutableArray alloc]init];
+        filterNames = [[NSMutableArray alloc]init];
     }
-    filterVC.selectedFilters=filterNames;
+    filterVC.selectedFilters = filterNames;
+    showFilter = NO;
     
     NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle]  pathForResource:@"filter" ofType:@"json"]];
     filterMapping = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -204,7 +206,12 @@
     int randomNum = arc4random() % businesses.count;
     selectedBusiness = businesses[randomNum];
     [self fetchRatingImage];
-    [self displayRating:YES];
+    if (showFilter) {
+        [self displayRating:NO];
+    } else {
+        [self displayRating:YES];
+    }
+    
     nameLabel.text= [NSString stringWithFormat:@"%@", selectedBusiness[@"name"]];//    [dic objectForKey:@"total"];
     mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
     
@@ -332,6 +339,7 @@
         [mapVC didMoveToParentViewController:self];
         
         [UIView animateWithDuration:0.5 animations:^{
+            [self displayRating:NO];
             nameLabel.frame = rectY(nameLabel.frame, 20);
             filterVC.view.frame=rectY(filterVC.view.frame, -(SVB.size.height-150));
         } completion:^(BOOL finished) {
@@ -339,6 +347,7 @@
                 mapVC.view.alpha = 1;
             }];
             showMap = YES;
+            showFilter = NO;
         }];
         
     } else {
@@ -347,6 +356,11 @@
             mapVC.view.alpha = 0;
             nameLabel.frame = rectY(nameLabel.frame, SVB.size.height/3-80/2);
         } completion:^(BOOL finished) {
+            if (selectedBusiness) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self displayRating:YES];
+                }];
+            }
             [mapVC removeFromParentViewController];
             showMap = NO;
         }];
@@ -369,6 +383,9 @@
         gr.view.transform = CGAffineTransformIdentity;
         selectedRectFrame = gr.view.frame;
         startPoint = [gr locationInView:self.view];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self displayRating:NO];
+        }];
         
     } else if (gr.state == UIGestureRecognizerStateChanged) {
         
@@ -383,26 +400,34 @@
         
         CGPoint endPoint = [gr locationInView:self.view];
         if (endPoint.y >= (startPoint.y + gr.view.bounds.size.height)) {
-            CGRect a=(CGRect){0, 0,320,SVB.size.height-150};
+            
             [self.view addSubview:filterVC.view];
             [UIView animateWithDuration:0.5 animations:^{
+                
                 gr.view.frame = rectY(gr.view.frame, SVB.size.height-150);
                 filterVC.view.frame=rectY(filterVC.view.frame,0);
                 
-                int i=1;
             } completion:^(BOOL finished) {
+                
+                showFilter = YES;
                 
             }];
             
         } else {
             [self saveFilters];
             [UIView animateWithDuration:0.5 animations:^{
+                
                 gr.view.frame = (CGRect){0, SVB.size.height/3-80/2, 320, 80};
                 filterVC.view.frame=rectY(filterVC.view.frame,-(SVB.size.height-150));
-
-
                 
             } completion:^(BOOL finished) {
+                
+                showFilter = NO;
+                [UIView animateWithDuration:0.3 animations:^{
+                    if (selectedBusiness) {
+                        [self displayRating:YES];
+                    }
+                }];
                 
             }];
             

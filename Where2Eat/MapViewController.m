@@ -14,6 +14,7 @@
 
 @implementation MapViewController {
     MKMapView *mapView;
+    UILabel *locationLabel;
 }
 
 -(void)loadView{
@@ -23,6 +24,14 @@
     mapView.frame = self.view.bounds;
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
+    
+    locationLabel = [UILabel new];
+    locationLabel.frame = (CGRect){0, 0, SVB.size.width, 50};
+    locationLabel.backgroundColor = [UIColor blackColor];
+    locationLabel.textAlignment = NSTextAlignmentCenter;
+    locationLabel.numberOfLines = 0;
+    locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [mapView addSubview:locationLabel];
     
     [self updateMap];
     
