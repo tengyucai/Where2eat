@@ -4,8 +4,12 @@
     "American" : "newamerican,tradamerican,hawaiian",
     "Fast Food": "burgers,hotdogs,pizza,sandwiches",
     "Viet/Thai": "vietnamese,thai",
-    "Middle Eastern":"mideastern,arabian",
+    "Middle Eastern":"mideastern,arabian,persian",
     "Asian Fusion":"asianfusion",
     "Latin American" : "mexican,brazilian,argentine,peruvian,latin",
-     "European" : "german,spanish,portuguese,polish,italian,french,british,modern_european",
+     "European" : "german,spanish,portuguese,polish,italian,french,british,modern_european,mediterranean,slovakian,austrian,moroccan,greek",
+    "Cafes" : "cafes,cafeteria",
+    "Chinese" : "chinese,mongolian",
+    "African" : "caribbean",
+    
 }

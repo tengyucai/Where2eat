@@ -34,7 +34,7 @@
                  @"Viet/Thai",
                  @"European",
                  @"Cafes",
-                 @"African",
+                 @"Caribbean",
                  @"Indian",
                  @"Latin American",
                  @"Middle Eastern",
