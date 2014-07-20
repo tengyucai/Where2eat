@@ -82,7 +82,7 @@
 
 #pragma mark - data source
 
-- (NSArray*)getFiltersArray{
+- (NSArray*)getFilters{
     return filters;
 }
 
