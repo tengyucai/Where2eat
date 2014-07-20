@@ -43,6 +43,7 @@
     NSMutableArray *businesses;
     NSDictionary *selectedBusiness;
     FilterViewController* filterVC;
+    NSArray *filterNames;
 }
 
 -(void)loadView
@@ -106,7 +107,12 @@
     
     filterVC=[FilterViewController new];
 //    filterVC.view.frame=self.view.frame;
-
+    
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]!=nil){
+        filterNames=[[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"];
+    } else {
+        filterNames=[[NSArray alloc]init];
+    }
     
     [LM startUpdatingLocation];
 }
@@ -342,6 +348,10 @@
     } else if (gr.state == UIGestureRecognizerStateFailed) {
         
     }
+}
+
+-(void)saveFilters{
+    FilterViewController.
 }
 
 #pragma mark - Yelp API
