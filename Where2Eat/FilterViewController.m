@@ -106,30 +106,45 @@
 - (void)selectCategory:(UIGestureRecognizer*)gr
 {
     UILabel *selected = (UILabel*)gr.view;
-    if (selected.tag == 0) {
-        [self selectLabel:selected withBool:YES];
-        [_selectedFilters addObject:selected.text];
-    } else {
-        [self selectLabel:selected withBool:NO];
-        [_selectedFilters removeObject:selected.text];
-    }
+    // gr.view is "All"
     if ([selected.text isEqualToString:@"All"]) {
-        [_selectedFilters removeObject:selected.text];
-        for (UIView *filter in self.view.subviews) {
-            if ([filter isKindOfClass:[UILabel class]]) {
-                UILabel *tmpLabel = (UILabel*)filter;
-                if (selected.tag == 0) {
+        // if All is selected, unselected all filters
+        if (selected.tag == 1) {
+            for (UIView *filter in self.view.subviews) {
+                if ([filter isKindOfClass:[UILabel class]]) {
+                    UILabel *tmpLabel = (UILabel*)filter;
                     [self selectLabel:tmpLabel withBool:NO];
-                    
                     [_selectedFilters removeAllObjects];
-                } else {
-                    
+                }
+            }
+        } else {
+            for (UIView *filter in self.view.subviews) {
+                if ([filter isKindOfClass:[UILabel class]]) {
+                    UILabel *tmpLabel = (UILabel*)filter;
                     [self selectLabel:tmpLabel withBool:YES];
                     [_selectedFilters addObject:tmpLabel.text];
                 }
             }
+            
+        }
+        //[_selectedFilters removeObject:selected.text];
+    } else {
+        if (selected.tag == 0) {
+            [self selectLabel:selected withBool:YES];
+            [_selectedFilters addObject:selected.text];
+        } else {
+            [self selectLabel:selected withBool:NO];
+            [_selectedFilters removeObject:selected.text];
+            if ([_selectedFilters containsObject:@"All"]) {
+                UILabel *allLabel = [self getObjectWithKey:@"filterNames" value:@"All"];
+                [self selectLabel:allLabel withBool:NO];
+                [_selectedFilters removeObject:@"All"];
+            }
         }
     }
+    
+    
+    
     NSLog(@"%@",_selectedFilters);
 }
 
