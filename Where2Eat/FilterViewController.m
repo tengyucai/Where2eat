@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    filterNames=[NSArray arrayWithObjects:@"Chinese",
+    filterNames=[[NSArray arrayWithObjects:@"Chinese",
                  @"Korean",
                  @"Taiwanese",
                  @"Japanese",
@@ -40,7 +40,10 @@
                  @"Middle Eastern",
                  @"Seafood",
                  @"Vegetarian",
-                 @"All", nil];
+                  nil] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSMutableArray* sortedNames=[NSMutableArray arrayWithArray:filterNames];
+    [sortedNames addObject:@"All"];
+    filterNames=[NSArray arrayWithArray:sortedNames];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
