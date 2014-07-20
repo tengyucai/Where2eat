@@ -43,7 +43,7 @@
     NSMutableArray *businesses;
     NSDictionary *selectedBusiness;
     FilterViewController* filterVC;
-    NSArray *filterNames;
+    NSMutableArray *filterNames;
     NSString* filterString;
 }
 
@@ -110,10 +110,11 @@
 //    filterVC.view.frame=self.view.frame;
     
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]!=nil){
-        filterNames=[[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"];
+        filterNames=[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults]objectForKey:@"filterNames"]];
     } else {
-        filterNames=[[NSArray alloc]init];
+        filterNames=[[NSMutableArray alloc]init];
     }
+    filterVC.selectedFilters=filterNames;
     
     [LM startUpdatingLocation];
 }
@@ -355,7 +356,7 @@
 }
 
 -(void)saveFilters{
-    [[NSUserDefaults standardUserDefaults]setObject:[filterVC getFilters] forKey:@"filterNames"];
+    [[NSUserDefaults standardUserDefaults]setObject:[NSArray arrayWithArray:[filterVC getFilters]] forKey:@"filterNames"];
 }
 
 #pragma mark - Yelp API
