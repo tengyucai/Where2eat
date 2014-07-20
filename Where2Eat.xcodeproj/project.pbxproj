@@ -55,6 +55,7 @@
 		E81E22CE1978C7A80028120C /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22B91978C7A80028120C /* OAServiceTicket.m */; };
 		E81E22CF1978C7A80028120C /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22BC1978C7A80028120C /* OAToken.m */; };
 		E81E22D01978C7A80028120C /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E81E22BE1978C7A80028120C /* OATokenManager.m */; };
+		E896A844197A4CDA0031051D /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E896A843197A4CDA0031051D /* FilterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		E81E22BD1978C7A80028120C /* OATokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OATokenManager.h; sourceTree = "<group>"; };
 		E81E22BE1978C7A80028120C /* OATokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OATokenManager.m; sourceTree = "<group>"; };
 		E81E22BF1978C7A80028120C /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
+		E896A842197A4CDA0031051D /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		E896A843197A4CDA0031051D /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +220,8 @@
 				0D9EE20D197899E200AECFE1 /* AppDelegate.m */,
 				0D9EE22F19789CCA00AECFE1 /* MasterViewController.h */,
 				0D9EE23019789CCA00AECFE1 /* MasterViewController.m */,
+				E896A842197A4CDA0031051D /* FilterViewController.h */,
+				E896A843197A4CDA0031051D /* FilterViewController.m */,
 				0D9FB4D8197A24BA00A18B8E /* MapViewController.h */,
 				0D9FB4D9197A24BA00A18B8E /* MapViewController.m */,
 				0D9EE2741978F5B700AECFE1 /* SplashViewController.h */,
@@ -510,6 +515,7 @@
 				0D9EE20A197899E200AECFE1 /* main.m in Sources */,
 				E81E22C51978C7A80028120C /* sha1.c in Sources */,
 				E81E22C01978C7A80028120C /* NSMutableURLRequest+Parameters.m in Sources */,
+				E896A844197A4CDA0031051D /* FilterViewController.m in Sources */,
 				E81E22C11978C7A80028120C /* NSString+URLEncoding.m in Sources */,
 				0D9EE2601978E03600AECFE1 /* PaintingWindow.m in Sources */,
 				E81E22C31978C7A80028120C /* Base64Transcoder.c in Sources */,

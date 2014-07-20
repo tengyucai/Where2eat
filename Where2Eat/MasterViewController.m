@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <math.h>
 #import "MapViewController.h"
+#import "FilterViewController.h"
 
 @interface MasterViewController ()
 
@@ -41,6 +42,7 @@
     CLLocation *currentLocation;
     NSMutableArray *businesses;
     NSDictionary *selectedBusiness;
+    FilterViewController* filterVC;
 }
 
 -(void)loadView
@@ -100,6 +102,12 @@
     
     // change later, use NSUserDefault
     radius_filter = radiusSlider.value*radiusSlider.value*40000;
+<<<<<<< HEAD
+=======
+    
+    filterVC=[FilterViewController new];
+//    filterVC.view.frame=self.view.frame;
+>>>>>>> 36564e97fb9ee808d10869e89d07d8a3486500c9
     
     [LM startUpdatingLocation];
 }
@@ -141,9 +149,12 @@
     NSLog(@"Current distance: %f", radius_filter);
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
 
+<<<<<<< HEAD
 
     [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithFloat:slider.value] forKey:@"Radius"];
     NSLog(@"Current distance: %f", slider.value);
+=======
+>>>>>>> 36564e97fb9ee808d10869e89d07d8a3486500c9
 }
 
 -(void)sliderDidEndSliding:(UISlider*)slider
@@ -258,6 +269,7 @@
         
         [UIView animateWithDuration:0.5 animations:^{
             nameLabel.frame = rectY(nameLabel.frame, 20);
+            filterVC.view.frame=rectY(filterVC.view.frame, -(SVB.size.height-150));
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.3 animations:^{
                 mapVC.view.alpha = 1;
@@ -283,6 +295,9 @@
     if (showMap) {
         return;
     }
+    [self addChildViewController:filterVC];
+    [filterVC didMoveToParentViewController:self];
+    [self.view addSubview:filterVC.view];
     static CGPoint startPoint;
     static CGRect selectedRectFrame;
     if (gr.state == UIGestureRecognizerStateBegan) {
@@ -304,8 +319,14 @@
         
         CGPoint endPoint = [gr locationInView:self.view];
         if (endPoint.y >= (startPoint.y + gr.view.bounds.size.height)) {
+            CGRect a=(CGRect){0, 0,320,SVB.size.height-150};
+            [self.view addSubview:filterVC.view];
+            
             [UIView animateWithDuration:0.5 animations:^{
                 gr.view.frame = rectY(gr.view.frame, SVB.size.height-150);
+                filterVC.view.frame=rectY(filterVC.view.frame,0);
+                
+                int i=1;
             } completion:^(BOOL finished) {
                 
             }];
@@ -313,6 +334,10 @@
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 gr.view.frame = (CGRect){0, SVB.size.height/3-80/2, 320, 80};
+                filterVC.view.frame=rectY(filterVC.view.frame,-(SVB.size.height-150));
+
+
+                
             } completion:^(BOOL finished) {
                 
             }];
