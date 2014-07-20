@@ -20,11 +20,16 @@
     
     self.view.backgroundColor = RGB(30, 125, 215);
     
-    UIImageView *yelpLogoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"miniMapLogo"]];
-    yelpLogoView.frame = (CGRect){SVB.size.width/2-yelpLogoView.bounds.size.width/2, SVB.size.height-yelpLogoView.bounds.size.height-5, yelpLogoView.bounds.size};
-    //yelpLogoView.frame = (CGRect){S, SVB.size.height-40, yelpLogoView.bounds.size};
-    //yelpLogoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    yelpLogoView.backgroundColor = CCOLOR;
-    [self.view addSubview:yelpLogoView];
+    UILabel *splashLabel = [UILabel new];
+    splashLabel.frame = SVF;
+    splashLabel.text = @"WHERE\n 2\n EAT";
+    splashLabel.textAlignment = NSTextAlignmentCenter;
+    splashLabel.textColor = [UIColor whiteColor];
+    splashLabel.numberOfLines = 0;
+    splashLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    splashLabel.font = [UIFont boldSystemFontOfSize:60];
+    splashLabel.backgroundColor = CCOLOR;
+    [self.view addSubview:splashLabel];
+    
 }
 @end

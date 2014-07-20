@@ -68,6 +68,11 @@
         [filter addGestureRecognizer:gr];
         [self.view addSubview:filter];
     }
+    for (NSString *text in _selectedFilters) {
+        UILabel *selectdLabel = [self getObjectWithKey:@"filterNames" value:text];
+        selectdLabel.tag = 1;
+        selectdLabel.alpha = 0.85f;
+    }
     
 }
 
@@ -94,11 +99,7 @@
 -(void)setSelectedFilters:(NSMutableArray *)selectedFilters
 {
     _selectedFilters = selectedFilters;
-    for (NSString *text in _selectedFilters) {
-        UILabel *selectdLabel = [self getObjectWithKey:@"filterNames" value:text];
-        selectdLabel.tag = 1;
-        selectdLabel.alpha = 0.85f;
-    }
+    
     
 }
 
@@ -117,22 +118,25 @@
         [_selectedFilters removeObject:selected.text];
     }
     if ([selected.text isEqualToString:@"All"]) {
+        [_selectedFilters removeObject:selected.text];
         for (UIView *filter in self.view.subviews) {
             if ([filter isKindOfClass:[UILabel class]]) {
                 UILabel *tmpLabel = (UILabel*)filter;
                 if (selected.tag == 0) {
                     tmpLabel.tag = 0;
                     tmpLabel.alpha = 0.4f;
-                    [_selectedFilters addObject:tmpLabel.text];
+                    
+                    [_selectedFilters removeAllObjects];
                 } else {
                     tmpLabel.tag = 1;
                     tmpLabel.alpha = 0.85f;
-                    [_selectedFilters removeObject:tmpLabel.text];
+                    
+                    [_selectedFilters addObject:tmpLabel.text];
                 }
             }
         }
     }
-    
+    NSLog(@"%@",_selectedFilters);
 }
 
 

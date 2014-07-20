@@ -327,7 +327,6 @@
         if (endPoint.y >= (startPoint.y + gr.view.bounds.size.height)) {
             CGRect a=(CGRect){0, 0,320,SVB.size.height-150};
             [self.view addSubview:filterVC.view];
-            
             [UIView animateWithDuration:0.5 animations:^{
                 gr.view.frame = rectY(gr.view.frame, SVB.size.height-150);
                 filterVC.view.frame=rectY(filterVC.view.frame,0);
@@ -338,6 +337,7 @@
             }];
             
         } else {
+            [self saveFilters];
             [UIView animateWithDuration:0.5 animations:^{
                 gr.view.frame = (CGRect){0, SVB.size.height/3-80/2, 320, 80};
                 filterVC.view.frame=rectY(filterVC.view.frame,-(SVB.size.height-150));
