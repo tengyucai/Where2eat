@@ -16,7 +16,7 @@
 
 @implementation FilterViewController {
  
-    NSArray* filters;
+    NSMutableArray *selectedFilters;
     NSArray* filterNames;
     
 }
@@ -65,6 +65,7 @@
         filter.textColor=[UIColor whiteColor];
         filter.font=[UIFont fontWithName:@"HiraKakuProN-W3-Bold" size:15];
         filter.alpha=0.2f;
+        filter.tag = 0;
         filter.lineBreakMode = NSLineBreakByWordWrapping;
         filter.numberOfLines = 0;
         filter.userInteractionEnabled = YES;
@@ -79,21 +80,38 @@
 
 #pragma mark - data source
 
-- (NSArray*)getFiltersArray{
-    return filters;
+- (NSArray*)getFilters
+{
+    return selectedFilters;
 }
 
 #pragma mark - Action
 
 - (void)selectCategory:(UIGestureRecognizer*)gr
 {
-    gr.view.alpha = gr.view.alpha == 0.8f ? 0.2f : 0.8f;
     UILabel *selected = (UILabel*)gr.view;
+    if (selected.tag == 0) {
+        selected.tag = 1;
+        selected.alpha = 0.85f;
+        [selectedFilters addObject:selected.text];
+    } else {
+        selected.tag = 0;
+        selected.alpha = 0.4f;
+        [selectedFilters removeObject:selected.text];
+    }
     if ([selected.text isEqualToString:@"All"]) {
         for (UIView *filter in self.view.subviews) {
             if ([filter isKindOfClass:[UILabel class]]) {
                 UILabel *tmpLabel = (UILabel*)filter;
-                tmpLabel.alpha = gr.view.alpha == 0.8f ? 0.8f : 0.2f;
+                if (selected.tag == 0) {
+                    tmpLabel.tag = 0;
+                    tmpLabel.alpha = 0.4f;
+                    [selectedFilters addObject:tmpLabel.text];
+                } else {
+                    tmpLabel.tag = 1;
+                    tmpLabel.alpha = 0.85f;
+                    [selectedFilters removeObject:tmpLabel.text];
+                }
             }
         }
     }
