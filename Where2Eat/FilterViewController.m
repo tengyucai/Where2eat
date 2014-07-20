@@ -55,8 +55,7 @@
         filter.textAlignment=NSTextAlignmentCenter;
         filter.textColor=[UIColor whiteColor];
         filter.font=[UIFont fontWithName:@"HiraKakuProN-W3-Bold" size:15];
-        filter.alpha=0.4f;
-        filter.tag = 0;
+        [self selectLabel:filter withBool:NO];
         filter.lineBreakMode = NSLineBreakByWordWrapping;
         filter.numberOfLines = 0;
         filter.userInteractionEnabled = YES;
@@ -70,8 +69,7 @@
     }
     for (NSString *text in _selectedFilters) {
         UILabel *selectdLabel = [self getObjectWithKey:@"filterNames" value:text];
-        selectdLabel.tag = 1;
-        selectdLabel.alpha = 0.85f;
+         [self selectLabel:selectdLabel withBool:YES];
     }
     
 }
@@ -109,12 +107,10 @@
 {
     UILabel *selected = (UILabel*)gr.view;
     if (selected.tag == 0) {
-        selected.tag = 1;
-        selected.alpha = 0.85f;
+        [self selectLabel:selected withBool:YES];
         [_selectedFilters addObject:selected.text];
     } else {
-        selected.tag = 0;
-        selected.alpha = 0.4f;
+        [self selectLabel:selected withBool:NO];
         [_selectedFilters removeObject:selected.text];
     }
     if ([selected.text isEqualToString:@"All"]) {
@@ -123,20 +119,31 @@
             if ([filter isKindOfClass:[UILabel class]]) {
                 UILabel *tmpLabel = (UILabel*)filter;
                 if (selected.tag == 0) {
-                    tmpLabel.tag = 0;
-                    tmpLabel.alpha = 0.4f;
+                    [self selectLabel:tmpLabel withBool:NO];
                     
                     [_selectedFilters removeAllObjects];
                 } else {
-                    tmpLabel.tag = 1;
-                    tmpLabel.alpha = 0.85f;
                     
+                    [self selectLabel:tmpLabel withBool:YES];
                     [_selectedFilters addObject:tmpLabel.text];
                 }
             }
         }
     }
     NSLog(@"%@",_selectedFilters);
+}
+
+-(void)selectLabel:(UILabel*)label withBool:(BOOL)select
+{
+    if (select) {
+        label.tag = 1;
+        label.alpha = 0.85f;
+        label.textColor = [UIColor whiteColor];
+    } else {
+        label.tag = 0;
+        label.alpha = 0.4f;
+        label.textColor = [UIColor whiteColor];
+    }
 }
 
 
