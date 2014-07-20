@@ -44,6 +44,7 @@
     NSDictionary *selectedBusiness;
     FilterViewController* filterVC;
     NSArray *filterNames;
+    NSString* filterString;
 }
 
 -(void)loadView
@@ -189,6 +190,9 @@
     isFirstPage=YES;
     businesses=[[NSMutableArray alloc]init];
     finishedPages=0;
+    filterNames=[filterVC getFilters];
+    filterString=[filterNames containsObject:@"All"]?@"":[filterNames componentsJoinedByString:@","];
+    [self saveFilters];
     [self activity:YES];
     [self soundEffect];
     // OAuthConsumer doesn't handle pluses in URL, only percent escapes
@@ -197,7 +201,7 @@
     
     // OAuthConsumer has been patched to properly URL escape the consumer and token secrets
     currentLocation = [LM currentLocation];
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=%f,%f&radius_filter=%f&limit=20&mode=0",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter]];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=%@&ll=%f,%f&radius_filter=%f&limit=20&mode=0",filterString,currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter]];
     
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
     OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
@@ -217,7 +221,7 @@
 }
 
 -(void)fetchNext{
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=chinese&ll=%f,%f&radius_filter=%f&limit=20&mode=0&offset=%d",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter,finishedPages*20]];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=%@&ll=%f,%f&radius_filter=%f&limit=20&mode=0&offset=%d",filterString,currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter,finishedPages*20]];
     
     OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
     OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
@@ -351,7 +355,7 @@
 }
 
 -(void)saveFilters{
-    FilterViewController.
+    [[NSUserDefaults standardUserDefaults]setObject:[filterVC getFilters] forKey:@"filterNames"];
 }
 
 #pragma mark - Yelp API

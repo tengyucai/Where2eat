@@ -67,7 +67,7 @@
         filter.textAlignment=NSTextAlignmentCenter;
         filter.textColor=[UIColor whiteColor];
         filter.font=[UIFont fontWithName:@"HiraKakuProN-W3-Bold" size:15];
-        filter.alpha=0.2f;
+        filter.alpha=0.4f;
         filter.tag = 0;
         filter.lineBreakMode = NSLineBreakByWordWrapping;
         filter.numberOfLines = 0;
