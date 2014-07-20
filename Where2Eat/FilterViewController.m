@@ -32,13 +32,13 @@
                  @"Fast Food",
                  @"American",
                  @"Viet/Thai",
-                 @"Asian Fusion",
+                 @"European",
                  @"Cafes",
-                 @"Canadian",
+                 @"African",
                  @"Indian",
-                 @"Mexican",
+                 @"Latin American",
                  @"Middle Eastern",
-                 @"Spanish",
+                 @"Seafood",
                  @"Vegetarian",
                  @"All", nil];
 }
