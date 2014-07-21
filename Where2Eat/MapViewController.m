@@ -16,6 +16,7 @@
 @implementation MapViewController {
     MKMapView *mapView;
     UILabel *locationLabel;
+    CLPlacemark* placemark;
 }
 
 -(void)loadView{
@@ -23,7 +24,7 @@
     
     mapView = [[MKMapView alloc]init];
     mapView.frame = self.view.bounds;
-    //mapView.delegate = self;
+    mapView.delegate = self;
     mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:mapView];
     
@@ -34,6 +35,9 @@
     locationLabel.textAlignment = NSTextAlignmentCenter;
     locationLabel.numberOfLines = 0;
     locationLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    locationLabel.userInteractionEnabled=YES;
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openAppleMaps:)];
+    [locationLabel addGestureRecognizer:gr];
     [mapView addSubview:locationLabel];
     
     [self updateMap];
@@ -46,7 +50,7 @@
     [gecoder geocodeAddressString:_address completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if (placemarks.count>0) {
-            CLPlacemark *placemark = placemarks[0];
+            placemark = placemarks[0];
             
             MKPointAnnotation *annotation = [MKPointAnnotation new];
             annotation.coordinate = placemark.location.coordinate;
@@ -56,9 +60,10 @@
             myLocation.title = @"My location";
             [mapView removeAnnotations:[mapView annotations]];
             [mapView addAnnotation:annotation];
-            [mapView addAnnotation:myLocation];
-            
+            //[mapView addAnnotation:myLocation];
+            [mapView setShowsUserLocation:YES];
             mapView.region = MKCoordinateRegionMake(annotation.coordinate, MKCoordinateSpanMake(0.02, 0.02));
+            //mapView.exclusiveTouch=NO;
         }
         
     }];
@@ -74,16 +79,29 @@
 #pragma mark - MapView delegate
 
 -(MKAnnotationView*)mapView:(MKMapView *)_mapView viewForAnnotation:(id<MKAnnotation>)annotation{
-    
+    if (annotation==mapView.userLocation)
+        return nil;
     MKPinAnnotationView *pin = (MKPinAnnotationView *) [_mapView dequeueReusableAnnotationViewWithIdentifier:@"xxx"];
     if (!pin) {
-        pin = [MKPinAnnotationView new];
+        pin=[[MKPinAnnotationView alloc]
+         initWithAnnotation:annotation reuseIdentifier:@"xxx"];
     }
-    pin.annotation = annotation;
+    //pin.annotation = annotation;
     pin.animatesDrop = YES;
+    pin.pinColor = MKPinAnnotationColorPurple;
+    pin.canShowCallout= YES;
 
     
     return pin;
+}
+
+#pragma mark - Gestures
+
+-(void)openAppleMaps:(UIGestureRecognizer*)gr{
+    MKPlacemark *tmpPlacemark = [[MKPlacemark alloc] initWithCoordinate:placemark.location.coordinate addressDictionary:nil];
+    MKMapItem *item=[[MKMapItem alloc]initWithPlacemark:tmpPlacemark];
+    item.name=_address;
+    [item openInMapsWithLaunchOptions:nil];
 }
 
 @end
