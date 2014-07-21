@@ -178,7 +178,7 @@
 //        float newValue = slider.value/10;
 //        slider.value = floor(newValue)*10;
         radius_filter = slider.value * slider.value * 40000;
-        nameLabel.text = [NSString stringWithFormat:@"%0.0f m", radius_filter];
+        nameLabel.text = [NSString stringWithFormat:@"%0.0f meters", radius_filter];
     }
     
     NSLog(@"Current distance: %f", radius_filter);
