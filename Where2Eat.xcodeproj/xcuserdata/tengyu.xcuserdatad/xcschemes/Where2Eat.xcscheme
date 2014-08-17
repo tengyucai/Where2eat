@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0D9EE1F9197899E200AECFE1"
-               BuildableName = "Where2Eat.app"
+               BuildableName = "Shake2Eat.app"
                BlueprintName = "Where2Eat"
                ReferencedContainer = "container:Where2Eat.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D9EE1F9197899E200AECFE1"
-            BuildableName = "Where2Eat.app"
+            BuildableName = "Shake2Eat.app"
             BlueprintName = "Where2Eat"
             ReferencedContainer = "container:Where2Eat.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D9EE1F9197899E200AECFE1"
-            BuildableName = "Where2Eat.app"
+            BuildableName = "Shake2Eat.app"
             BlueprintName = "Where2Eat"
             ReferencedContainer = "container:Where2Eat.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0D9EE1F9197899E200AECFE1"
-            BuildableName = "Where2Eat.app"
+            BuildableName = "Shake2Eat.app"
             BlueprintName = "Where2Eat"
             ReferencedContainer = "container:Where2Eat.xcodeproj">
          </BuildableReference>
@@ -91,6 +91,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Shake2Eat"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

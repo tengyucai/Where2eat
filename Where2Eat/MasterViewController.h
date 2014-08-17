@@ -10,6 +10,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+typedef enum {
+    APISourceYelp=1,
+    APISourceDianPing=2
+} APISource;
+
 @interface MasterViewController : CommonViewController
 
 @end

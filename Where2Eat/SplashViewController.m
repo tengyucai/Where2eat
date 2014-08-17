@@ -7,6 +7,7 @@
 //
 
 #import "SplashViewController.h"
+#import "LocationManager.h"
 
 @interface SplashViewController ()
 
@@ -22,7 +23,7 @@
     
     UILabel *splashLabel = [UILabel new];
     splashLabel.frame = SVF;
-    splashLabel.text = @"WHERE\nTO\nEAT";
+    splashLabel.text = @"SHAKE\nTO\nEAT";
     splashLabel.textAlignment = NSTextAlignmentCenter;
     splashLabel.textColor = [UIColor whiteColor];
     splashLabel.numberOfLines = 0;
@@ -30,6 +31,9 @@
     splashLabel.font = [UIFont boldSystemFontOfSize:60];
     splashLabel.backgroundColor = CCOLOR;
     [self.view addSubview:splashLabel];
+    
+    
+    [LM startUpdatingLocation];
     
 }
 @end

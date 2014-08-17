@@ -7,6 +7,7 @@
 //
 
 #import "MasterViewController.h"
+#import "AppDelegate.h"
 #import "LocationManager.h"
 #import "OAuthConsumer.h"
 #import "ANBlurredImageView.h"
@@ -17,13 +18,15 @@
 #import "MapViewController.h"
 #import "FilterViewController.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () <DPRequestDelegate>
 
 @property (nonatomic,strong) AVAudioPlayer *effectPlayer;
 
 @end
 
 @implementation MasterViewController {
+    
+    APISource apiSource;
     
     UILabel *nameLabel;
     ANBlurredImageView *backgroundImage;
@@ -86,6 +89,7 @@
     yelpLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"miniMapLogo"]];
     yelpLogo.frame = (CGRect){SVB.size.width/3-yelpLogo.bounds.size.width, y, yelpLogo.bounds.size};
     //yelpLogo.backgroundColor = [UIColor blackColor];
+    [yelpLogo sizeToFit];
     [self.view addSubview:yelpLogo];
     
     float x = CGRectGetMaxX(yelpLogo.frame) + 10;
@@ -143,15 +147,16 @@
     filterMapping = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     
     
+    NSLog(@"%i", apiSource);
     
-    [LM startUpdatingLocation];
+
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetch) name:@"shake" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setApiSourceAndFetch) name:@"shake" object:nil];
     
 //    NSDateFormatter *dateF = [[NSDateFormatter alloc] init];
 //    [dateF setDateStyle:NSDateFormatterFullStyle];
@@ -167,6 +172,8 @@
     [backgroundImage generateBlurFramesWithCompletion:^{
         [backgroundImage blurInAnimationWithDuration:0.25f];
     }];
+    
+    
 }
 
 #pragma UISlider
@@ -200,6 +207,7 @@
 {
     [self activity:NO];
     NSLog(@"%@", resultDic);
+    
     if (businesses.count == 0) {
         nameLabel.text = @"No restaurants nearby";
         selectedBusiness = NULL;
@@ -214,26 +222,78 @@
         [self displayRating:YES];
     }
     
+    NSLog(@"%@", selectedBusiness[@"name"]);
     nameLabel.text= [NSString stringWithFormat:@"%@", selectedBusiness[@"name"]];//    [dic objectForKey:@"total"];
-    mapVC.address= [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
     
+    
+    
+    if (apiSource == APISourceDianPing) {
+        mapVC.address = businesses[randomNum][@"address"];
+    } else if (apiSource == APISourceYelp) {
+        mapVC.address = [businesses[randomNum][@"location"][@"display_address"] componentsJoinedByString:@" "];
+    }
     
 }
 
 
 -(void)fetchRatingImage
 {
-    NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:selectedBusiness[@"rating_img_url"]]];
+    NSString *imageUrl;
+    if (apiSource == APISourceDianPing) {
+        imageUrl = selectedBusiness[@"rating_s_img_url"];
+        yelpLogo.image = [UIImage imageNamed:@"dianpingLogo1"];
+    } else if (apiSource == APISourceYelp) {
+        imageUrl = selectedBusiness[@"rating_img_url"];
+        yelpLogo.image = [UIImage imageNamed:@"miniMapLogo"];
+    }
+    NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:imageUrl]];
     yelpRating.image = [UIImage imageWithData:imageData];
     yelpRating.frame = rectWidth(yelpRating.frame, yelpRating.bounds.size.width);
     yelpRating.layer.borderColor = RGB(240, 170, 80).CGColor;
     yelpRating.layer.borderWidth = 3.0f;
 }
 
-
-- (void)fetch {
+- (void)setApiSourceAndFetch {
+    
     if (isRunning) return;
     isRunning=YES;
+    [self activity:YES];
+    [self soundEffect];
+    
+    // set source API
+    currentLocation = [LM currentLocation];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (placemarks == nil)
+             return;
+         
+         CLPlacemark *currentLocPlacemark = [placemarks objectAtIndex:0];
+         NSLog(@"Current country: %@", [currentLocPlacemark country]);
+         NSString *ISOCountryCode = [currentLocPlacemark ISOcountryCode];
+         NSLog(@"Current country code: %@", ISOCountryCode);
+         
+         // Current country is China, HK, Macow or Taiwan
+         if ([ISOCountryCode isEqualToString:@"CN"] ||
+             [ISOCountryCode isEqualToString:@"HK"] ||
+             [ISOCountryCode isEqualToString:@"MO"] ||
+             [ISOCountryCode isEqualToString:@"TW"]) {
+             
+             apiSource = APISourceDianPing;
+             
+             // other countries
+         } else {
+             
+             apiSource = APISourceYelp;
+             
+         }
+         [self fetch];
+     }];
+}
+
+
+- (void)fetch {
+    
     isFirstPage=YES;
     businesses=[[NSMutableArray alloc]init];
     finishedPages=0;
@@ -249,30 +309,47 @@
     filterString = [mappedFilterNames containsObject:@"All"] ? @"" : [[mappedFilterNames componentsJoinedByString:@","] lowercaseString];
     NSLog(filterString);
     [self saveFilters];
-    [self activity:YES];
-    [self soundEffect];
+    
     // OAuthConsumer doesn't handle pluses in URL, only percent escapes
     // OK: http://api.yelp.com/v2/search?term=restaurants&location=new%20york
     // FAIL: http://api.yelp.com/v2/search?term=restaurants&location=new+york
     
     // OAuthConsumer has been patched to properly URL escape the consumer and token secrets
+    
+    
     currentLocation = [LM currentLocation];
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=%@&ll=%f,%f&radius_filter=%f&limit=20&mode=0",filterString,currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter]];
+    //[self setApiSource];
+    NSLog(@"%i", apiSource);
+    // Current country is China, HK, Macow or Taiwan
+    if (apiSource == APISourceDianPing) {
+        
+        NSString *url = @"v1/business/find_businesses";
+        NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+        
+        [[[AppDelegate instance] dpapi] requestWithURL:url paramsString:params delegate:self];
+        
+        
+    } else if (apiSource == APISourceYelp) { // other country
+        
+        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurant&category_filter=%@&ll=%f,%f&radius_filter=%f&limit=20&mode=0",filterString,currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,radius_filter]];
+        
+        OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
+        OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
+        id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init] ;
+        NSString *realm = nil;
+        
+        OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:URL
+                                                                       consumer:consumer
+                                                                          token:token
+                                                                          realm:realm
+                                                              signatureProvider:provider];
+        [request prepare];
+        
+        _responseData = [[NSMutableData alloc] init];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        
+    }
     
-    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:@"cGIReDsqxtdpQ-XLLHMXHw" secret:@"WoAwZGlr-zziq8G5mJwrw-m4dNs"];
-    OAToken *token = [[OAToken alloc] initWithKey:@"Q8-qoen7t2h_7iIDWJ5wxcrnuq_Y7UVt" secret:@"nCWjMw9093GFp4LIDIk_ARtALGA"];
-    id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init] ;
-    NSString *realm = nil;
-    
-    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:URL
-                                                                   consumer:consumer
-                                                                      token:token
-                                                                      realm:realm
-                                                          signatureProvider:provider];
-    [request prepare];
-    
-    _responseData = [[NSMutableData alloc] init];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
 }
 
@@ -463,7 +540,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"Error: %@, %@", [error localizedDescription], [error localizedFailureReason]);
     [self activity:NO];
-    nameLabel.text=@"Check network connection";
+    nameLabel.text=@"Check Network Connection!!!";
     isRunning=false;
 }
 
@@ -486,6 +563,24 @@
         
         [self didFinishFetch];
     }
+}
+
+
+#pragma mark - DianPing API
+
+- (void)request:(DPRequest *)request didFailWithError:(NSError *)error {
+    [self activity:NO];
+    nameLabel.text=@"Check Network Connection!!!";
+    isRunning=false;
+	NSLog(@"%@", error);
+}
+
+- (void)request:(DPRequest *)request didFinishLoadingWithResult:(id)result {
+    resultDic = result;
+	NSLog(@"%@", result[@"businesses"]);
+    [self addToBusinesses];
+    isRunning=false;
+    [self didFinishFetch];
 }
 
 
